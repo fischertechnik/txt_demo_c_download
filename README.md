@@ -10,10 +10,72 @@ In TXT, this differentiation has been done away with using the network protocol.
 
 The sensors and actuators of the fischertechnik TXT controller can be controlled in two ways:
 
-### Online programming
+- Online programming
 Here, a computer can control a controller via the USB cable, WLAN or Bluetooth (BT). The documentation can be found in 
 [TXT C-Programming Expert Kit](https://www.fischertechnik.de/-/media/fischertechnik/fite/service/downloads/robotics/txt-controller/documents/09-txt-c-programming-expert-kit.ashx) on the fischertechnik website.
 
-###	Download programming
-Here, a program is created in a Linux environment and transferred to the TXT, and it can be started there via the menu system. This documentation shows how a virtual machine can be installed on a Windows computer and how Linux can be used there to then cre-ate download programs for the TXT.
+-	Download programming
+Here, a program is created with a cross compiler and transferred to the TXT, and it can be started there via the menu system. This documentation shows how an eclipse environment can be used to create download programs for the TXT. Expert users can also use other IDE, e. g. Visual Studio or CodeLite.
 
+## Installation
+
+### Eclipse
+
+### Tool chain
+
+## Setting up the development environment
+
+## Installation of sample files
+
+## Overview of the demo programs
+There are several sample programs that explain the control of the TXT.
+
+###	Demo 0
+
+###	Demo 1
+
+###	Demo 2
+The following assignment is expected: 
+
+Master TXT	Output M1	Encoder motor
+	Input C1	Counter signal of the encoder motor
+
+The demo program shows the distance operation of the encoder motor. We thus recom-mend that you plug a rest gear wheel 137677 to the axle and highlight a wheel.
+The program switches the motor for 2 rotations, then waits for a second and carries out the same number of rotations in the opposite direction.
+
+Then the program ends.
+
+###	Demo 3
+The following assignment is expected: 
+(Connect Extension only if a second TXT is present.)
+
+Master TXT	Input I1	key
+	Input I2	Ultrasonic sensor (if present)
+	Output M1	Light or motor
+	Output M2	Light or motor
+
+Extension TXT	Input I1	key
+	Input I2	Ultrasonic sensor (if present)
+	Output M1	Light or motor
+	Output M2	Light or motor
+
+The demo program shows the initialisation of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a propor-tional speed.
+
+The program automatically ends after 10 seconds.
+
+###	Demo 4
+This example shows the data output at the I2C bus.
+The I2C unit must first be initialised, and the I2C function can then be used to write the desired number of bytes and then read in the response.
+
+###	Demo 5
+The following assignment is expected: 
+(Connect Extension only if a second TXT is present.)
+
+Master TXT	Input I1	key
+	Output M1	Light or motor
+
+The demo program shows the use of CallBack routine. As long as this function is set up, it is called up during the data exchange with the hardware after the inputs are read in and the output information is output. 
+
+The CallBack routine should not need a lot of time so that the timing is not affected. During the routine, the key - in order to show it as an example - is debounced and the motor is then switched depending on the input.
+
+The program ends after the key is pressed 10 times at the I1 input.
