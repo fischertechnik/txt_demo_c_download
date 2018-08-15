@@ -21,8 +21,8 @@ Here, a program is created with a cross compiler and transferred to the TXT, and
 
 ### Eclipse
 Download and install:
-- [Java JRE] (http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-- [Eclipse CDT] (http://www.eclipse.org/downloads/packages/release/photon/r/eclipse-ide-cc-developers)
+- [Java JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+- [Eclipse CDT](http://www.eclipse.org/downloads/packages/release/photon/r/eclipse-ide-cc-developers)
 
 ### Tool chain
 
