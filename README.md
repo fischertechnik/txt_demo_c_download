@@ -1,6 +1,6 @@
-# ft-TXT-download-examples
+# fischertechnik TXT C-Download Examples
 
-## Introduction - TXT programming
+## TXT programming
 
 The fischertechnik TXT controller has an (embedded) Linux system that allows communication via WLAN, Bluetooth or USB interface. 
 The network protocol is used for control by means of interfaces and the TXT can thus be directly activated via IP addresses. 
