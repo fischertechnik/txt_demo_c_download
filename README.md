@@ -29,7 +29,7 @@ The demo program prints analog value to cout.
 > - Input I1: Voltage or color sensor
 
 ### TxtDemo02_EncM1
-The demo program shows the distance operation of the encoder motor. We thus recom-mend that you plug a rest gear wheel 137677 to the axle and highlight a wheel. The program switches the motor for 2 rotations, then waits for a second and carries out the same number of rotations in the opposite direction. Then the program ends.
+The demo program shows the distance operation of the encoder motor. It is recommended that you plug a rest gear wheel 137677 to the axle and highlight a wheel. The program switches the motor for 2 rotations, then waits for a second and carries out the same number of rotations in the opposite direction. Then the program ends.
 > Master TXT:
 > - Output M1	Encoder motor
 > - Input C1	Counter signal of the encoder motor
