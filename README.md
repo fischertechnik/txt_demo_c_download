@@ -38,54 +38,53 @@ Download:
 ![eclipse_pathsandsymbols_libpaths](docs/eclipse_pathsandsymbols_libpaths.PNG)
 ![eclipse_pathsandsymbols_libs](docs/eclipse_pathsandsymbols_libs.PNG)
    
-## Overview of the demo programs
+## Overview of the Demo Programs
 There are several sample programs that explain the control of the TXT.
 
-### Demo0
+### TxtDemo00_HelloWorld
+The demo program prints "TXT: Hello World!" to cout.
 
-### Demo1
+### TxtDemo01_Input1Print
+The demo program prints analog value to cout.
+> Master TXT:
+> - Input I1: Voltage
 
-### Demo2
-The following assignment is expected: 
-
-Master TXT:
-- Output M1	Encoder motor
-- Input C1	Counter signal of the encoder motor
-
+### TxtDemo02_EncM1
 The demo program shows the distance operation of the encoder motor. We thus recom-mend that you plug a rest gear wheel 137677 to the axle and highlight a wheel. The program switches the motor for 2 rotations, then waits for a second and carries out the same number of rotations in the opposite direction. Then the program ends.
+> Master TXT:
+> - Output M1	Encoder motor
+> - Input C1	Counter signal of the encoder motor
 
-### Demo3
-The following assignment is expected: 
-(Connect Extension only if a second TXT is present.)
+### TxtDemo03_Input12ExtM12
+The demo program shows the initialisation of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a proportional speed. The program automatically ends after 10 seconds.
 
-Master TXT:
-- Input I1	key
-- Input I2	Ultrasonic sensor (if present)
-- Output M1	Light or motor
-- Output M2	Light or motor
+> Master TXT:
+> - Input I1	key
+> - Input I2	Ultrasonic sensor (if present)
+> - Output M1	Light or motor
+> - Output M2	Light or motor
 
-Extension TXT:
-- Input I1	key
-- Input I2	Ultrasonic sensor (if present)
-- Output M1	Light or motor
-- Output M2	Light or motor
+> Extension TXT (Connect Extension only if a second TXT is present.):
+> - Input I1	key
+> - Input I2	Ultrasonic sensor (if present)
+> - Output M1	Light or motor
+> - Output M2	Light or motor
 
-The demo program shows the initialisation of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a propor-tional speed. The program automatically ends after 10 seconds.
-
-### Demo4
+### TxtDemo04_DbcCallback_I2C
 This example shows the data output at the I2C bus.
 The I2C unit must first be initialised, and the I2C function can then be used to write the desired number of bytes and then read in the response.
 
-### Demo5
-The following assignment is expected: 
-(Connect Extension only if a second TXT is present.)
+> Master TXT:
+> - I1: Switch
+> - I2C: PCF8574 with LED's on the Outputs
 
-Master TXT:
-- Input I1	key
-- Output M1	Light or motor
-
+### TxtDemo05_DbcCallbackInput1M1
 The demo program shows the use of CallBack routine. As long as this function is set up, it is called up during the data exchange with the hardware after the inputs are read in and the output information is output. 
 
 The CallBack routine should not need a lot of time so that the timing is not affected. During the routine, the key - in order to show it as an example - is debounced and the motor is then switched depending on the input.
 
 The program ends after the key is pressed 10 times at the I1 input.
+
+> Master TXT:
+> - Input I1	key
+> - Output M1	Light or motor
