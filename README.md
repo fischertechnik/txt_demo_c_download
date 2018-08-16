@@ -1,6 +1,6 @@
 # TXT C Download Examples
 
-## TXT programming
+## TXT Programming
 
 The fischertechnik TXT controller has an (embedded) Linux system that allows communication via WLAN, Bluetooth or USB interface. 
 The network protocol is used for control by means of interfaces and the TXT can thus be directly activated via IP addresses. 
@@ -24,11 +24,15 @@ Download and install:
 - [Java JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 - [Eclipse CDT](http://www.eclipse.org/downloads/packages/release/photon/r/eclipse-ide-cc-developers)
 
-### Tool chain
+### Tool Chain
+Download:
+- [Linaro 2017.11](https://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/arm-linux-gnueabihf/gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf.tar.xz)
 
-## Setting up the development environment
-
-## Installation of sample files
+## Setting up Eclipse
+1. Clone demo examples from GIT repository to a workspace folder.
+2. Start Eclipse CDT and import the examples from workspace
+3. Change path to the tool chain
+4. Change project settings and paths
 
 ## Overview of the demo programs
 There are several sample programs that explain the control of the TXT.
@@ -44,10 +48,7 @@ Master TXT:
 - Output M1	Encoder motor
 - Input C1	Counter signal of the encoder motor
 
-The demo program shows the distance operation of the encoder motor. We thus recom-mend that you plug a rest gear wheel 137677 to the axle and highlight a wheel.
-The program switches the motor for 2 rotations, then waits for a second and carries out the same number of rotations in the opposite direction.
-
-Then the program ends.
+The demo program shows the distance operation of the encoder motor. We thus recom-mend that you plug a rest gear wheel 137677 to the axle and highlight a wheel. The program switches the motor for 2 rotations, then waits for a second and carries out the same number of rotations in the opposite direction. Then the program ends.
 
 ### Demo 3
 The following assignment is expected: 
@@ -65,9 +66,7 @@ Extension TXT:
 - Output M1	Light or motor
 - Output M2	Light or motor
 
-The demo program shows the initialisation of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a propor-tional speed.
-
-The program automatically ends after 10 seconds.
+The demo program shows the initialisation of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a propor-tional speed. The program automatically ends after 10 seconds.
 
 ### Demo 4
 This example shows the data output at the I2C bus.
