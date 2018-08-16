@@ -31,9 +31,13 @@ Download:
 ## Setting up Eclipse
 1. Clone demo examples from GIT repository to a workspace folder.
 2. Start Eclipse CDT and import the examples from workspace
-3. Change path to the tool chain
-4. Change project settings and paths
-
+3. Change 'Prefix' and 'Path' to the tool chain location
+![eclipse_tool_settings](docs/eclipse_tool_settings.PNG)
+4. Change project properties in 'Paths and Symbols'
+![eclipse_pathsandsymbols_includes](docs/eclipse_pathsandsymbols_includes.PNG)
+![eclipse_pathsandsymbols_libpaths](docs/eclipse_pathsandsymbols_libpaths.PNG)
+![eclipse_pathsandsymbols_libs](docs/eclipse_pathsandsymbols_libs.PNG)
+   
 ## Overview of the demo programs
 There are several sample programs that explain the control of the TXT.
 
