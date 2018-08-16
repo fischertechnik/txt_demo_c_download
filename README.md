@@ -19,16 +19,16 @@ Here, a program is created with a cross compiler and transferred to the TXT, and
 
 ## Installation
 
-### Eclipse
+### Eclipse IDE
 Download and install:
 - [Java JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 - [Eclipse CDT](http://www.eclipse.org/downloads/packages/release/photon/r/eclipse-ide-cc-developers)
 
-### Tool Chain
+### TXT Tool Chain (TXT firmware >= 4.4.3)
 Download:
 - [Linaro 2017.11](https://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/arm-linux-gnueabihf/gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf.tar.xz)
 
-## Setting up Eclipse
+## Setting up Eclipse IDE
 1. Clone demo examples from GIT repository to a workspace folder.
 2. Start Eclipse CDT and import the examples from workspace
 3. Change 'Prefix' and 'Path' to the tool chain location
@@ -41,11 +41,11 @@ Download:
 ## Overview of the demo programs
 There are several sample programs that explain the control of the TXT.
 
-### Demo 0
+### Demo0
 
-### Demo 1
+### Demo1
 
-### Demo 2
+### Demo2
 The following assignment is expected: 
 
 Master TXT:
@@ -54,7 +54,7 @@ Master TXT:
 
 The demo program shows the distance operation of the encoder motor. We thus recom-mend that you plug a rest gear wheel 137677 to the axle and highlight a wheel. The program switches the motor for 2 rotations, then waits for a second and carries out the same number of rotations in the opposite direction. Then the program ends.
 
-### Demo 3
+### Demo3
 The following assignment is expected: 
 (Connect Extension only if a second TXT is present.)
 
@@ -72,11 +72,11 @@ Extension TXT:
 
 The demo program shows the initialisation of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a propor-tional speed. The program automatically ends after 10 seconds.
 
-### Demo 4
+### Demo4
 This example shows the data output at the I2C bus.
 The I2C unit must first be initialised, and the I2C function can then be used to write the desired number of bytes and then read in the response.
 
-### Demo 5
+### Demo5
 The following assignment is expected: 
 (Connect Extension only if a second TXT is present.)
 
