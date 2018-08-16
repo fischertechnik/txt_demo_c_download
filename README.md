@@ -17,27 +17,6 @@ Here, a computer can control a controller via the USB cable, WLAN or Bluetooth (
 - **Download programming**
 Here, a program is created with a cross compiler and transferred to the TXT, and it can be started there via the menu system. This documentation shows how an eclipse development environment can be used to create C download programs for the TXT. You can also use other IDE, e. g. Visual Studio or CodeLite.
 
-## Installation
-
-### Eclipse IDE
-Download and install:
-- [Java JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
-- [Eclipse CDT](http://www.eclipse.org/downloads/packages/release/photon/r/eclipse-ide-cc-developers)
-
-### TXT Tool Chain (TXT firmware >= 4.4.3)
-Download:
-- [Linaro 2017.11](https://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/arm-linux-gnueabihf/gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf.tar.xz)
-
-## Setting up Eclipse IDE
-1. Clone demo examples from GIT repository to a workspace folder.
-2. Start Eclipse CDT and import the examples from workspace
-3. Change 'Prefix' and 'Path' to the tool chain location
-![eclipse_tool_settings](docs/eclipse_tool_settings.PNG)
-4. Change project properties in 'Paths and Symbols'
-![eclipse_pathsandsymbols_includes](docs/eclipse_pathsandsymbols_includes.PNG)
-![eclipse_pathsandsymbols_libpaths](docs/eclipse_pathsandsymbols_libpaths.PNG)
-![eclipse_pathsandsymbols_libs](docs/eclipse_pathsandsymbols_libs.PNG)
-   
 ## Overview of the Demo Programs
 There are several sample programs that explain the control of the TXT.
 
@@ -88,3 +67,24 @@ The program ends after the key is pressed 10 times at the I1 input.
 > Master TXT:
 > - Input I1	key
 > - Output M1	Light or motor
+
+## Installation
+
+### Eclipse IDE
+Download and install:
+- [Java JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+- [Eclipse CDT](http://www.eclipse.org/downloads/packages/release/photon/r/eclipse-ide-cc-developers)
+
+### TXT Tool Chain (TXT firmware >= 4.4.3)
+Download:
+- [Linaro 2017.11](https://releases.linaro.org/components/toolchain/binaries/7.2-2017.11/arm-linux-gnueabihf/gcc-linaro-7.2.1-2017.11-i686-mingw32_arm-linux-gnueabihf.tar.xz)
+
+## Setting up Eclipse IDE
+1. Clone demo examples from GIT repository to a workspace folder.
+2. Start Eclipse CDT and import the examples from workspace
+3. Change 'Prefix' and 'Path' to the tool chain location
+![eclipse_tool_settings](docs/eclipse_tool_settings.PNG)
+4. Change project properties in 'Paths and Symbols'
+![eclipse_pathsandsymbols_includes](docs/eclipse_pathsandsymbols_includes.PNG)
+![eclipse_pathsandsymbols_libpaths](docs/eclipse_pathsandsymbols_libpaths.PNG)
+![eclipse_pathsandsymbols_libs](docs/eclipse_pathsandsymbols_libs.PNG)
