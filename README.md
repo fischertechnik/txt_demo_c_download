@@ -20,6 +20,31 @@ Here, a program is created with a cross compiler and transferred to the TXT, and
 ## Overview of the Demo Programs
 There are several sample programs that explain the control of the TXT.
 
+The basic C program in download mode looks as following: 
+```c
+#include "KeLibTxtDl.h"     // TXT Lib
+#include "FtShmem.h"        // TXT Transfer Area
+
+// Common debugging stuff for RoboProLib
+unsigned int DebugFlags;
+FILE *DebugFile;
+
+int main(void) 
+{
+	FISH_X1_TRANSFER    *pTArea;
+	if (StartTxtDownloadProg() == KELIB_ERROR_NONE)
+	{
+		pTArea = GetKeLibTransferAreaMainAddress();
+		if (pTArea)
+		{ 
+      //...
+		}
+		StopTxtDownloadProg();
+	}
+	return 0;
+}
+```
+
 ### TxtDemo00_HelloWorld
 The demo program prints "TXT: Hello World!" to cout.
 
