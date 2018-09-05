@@ -113,3 +113,10 @@ Download:
 ![eclipse_pathsandsymbols_includes](docs/eclipse_pathsandsymbols_includes.PNG)
 ![eclipse_pathsandsymbols_libpaths](docs/eclipse_pathsandsymbols_libpaths.PNG)
 ![eclipse_pathsandsymbols_libs](docs/eclipse_pathsandsymbols_libs.PNG)
+
+## Downloading Programs to TXT
+Compiled programs can be downloaded to TXT controller using [WinSCP](https://winscp.net/)
+
+- Login with ROBOPro user
+- Create the directory DownloadFiles
+- Copy the program binary to TXT to the path /opt/knobloch/DownloadFiles/ using WinSCP
