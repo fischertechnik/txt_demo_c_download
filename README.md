@@ -115,14 +115,18 @@ Download:
 ![eclipse_pathsandsymbols_libs](docs/eclipse_pathsandsymbols_libs.PNG)
 
 ## Downloading Programs to TXT
-Compiled programs can be downloaded to TXT controller using [WinSCP](https://winscp.net/)
+Compiled programs can be downloaded to the TXT controller using [WinSCP](https://winscp.net/)
 
 1. Login with ROBOPro user
 
 ![winscp_login](docs/winscp_login.PNG)
 
-- Create the directory DownloadFiles
+- Create the directory ```/opt/knobloch/DownloadFiles/```
 
 ![winscp_downloadfiles](docs/winscp_downloadfiles.PNG)
 
-- Copy the program binary to TXT controller to the path ```/opt/knobloch/DownloadFiles/``` using WinSCP. You can drag and drop files to the DownloadFiles directory
+- Copy the program binary using WinSCP to the path ```/opt/knobloch/DownloadFiles/```. You can drag and drop files to the DownloadFiles directory
+
+- Set access rights in Properties of the downloaded binary
+
+![winscp_access](docs/winscp_access.PNG)
