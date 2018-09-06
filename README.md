@@ -108,7 +108,7 @@ Download:
 
 ## Setting up Eclipse IDE
 1. Clone demo examples from GIT repository to a workspace folder.
-2. Start Eclipse CDT and import the examples from workspace
+2. Start Eclipse CDT and import the examples to your workspace
 ![eclipse_import1](docs/eclipse_import1.PNG)
 ![eclipse_import2](docs/eclipse_import2.PNG)
 3. Change 'Current builder' to 'CDT Internal Builder' in Release and Debug configuration
