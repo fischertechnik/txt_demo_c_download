@@ -123,6 +123,9 @@ Download:
 ## Downloading Programs to TXT
 Compiled programs can be downloaded to the TXT controller using [WinSCP](https://winscp.net/)
 
+> Attention: At first activate SSH Daemon for TXT fimrware >=4.4.4!
+
+
 1. Login with ROBOPro user
 
 ![winscp_login](docs/winscp_login.PNG)
