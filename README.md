@@ -124,8 +124,10 @@ Download:
 Compiled programs can be downloaded to the TXT controller using [WinSCP](https://winscp.net/)
 
 > Attention: At first activate SSH Daemon for TXT firmware >=4.4.4!
-> ![ssh_daemon](docs/ssh_daemon.PNG)
 
+- Activate SSH Daemon on TXT controller
+
+![ssh_daemon](docs/ssh_daemon.png)
 
 - Login with ROBOPro user
 
