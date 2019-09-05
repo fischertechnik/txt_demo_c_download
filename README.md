@@ -1,5 +1,7 @@
 > If you have any questions, please contact us: fischertechnik-technik@fischer.de
 
+> TXT firmware >= 4.4.3 needed!
+
 # TXT C Download Examples
 
 ## TXT Programming
