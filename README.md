@@ -14,7 +14,7 @@ The sensors and actuators of the fischertechnik TXT controller can be controlled
 
 - **Online programming**
 Here, a computer can control a controller via the USB cable, WLAN or Bluetooth (BT). The documentation can be found in 
-[TXT C-Programming Expert Kit](https://www.fischertechnik.de/-/media/fischertechnik/fite/service/downloads/robotics/txt-controller/documents/09-txt-c-programming-expert-kit.ashx) on the fischertechnik website.
+[txt_demo_c_online](https://github.com/fischertechnik/txt_demo_c_online).
 
 - **Download programming**
 Here, a program is created with a cross compiler and transferred to the TXT, and it can be started there via the menu system. This documentation shows how an eclipse development environment can be used to create C download programs for the TXT. You can also use other IDE, e. g. Visual Studio or CodeLite.
