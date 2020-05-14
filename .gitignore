@@ -17,3 +17,5 @@
 /TxtDemo07_Sound/Release/src
 /TxtBNO055/Debug/src
 /TxtBNO055/Release/src
+.settings/
+.tracecompass/
