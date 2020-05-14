@@ -1,2 +1,4 @@
-/Release/
+/Release/*.*
 /Debug/
+/.settings/
+/.tracecompass/
