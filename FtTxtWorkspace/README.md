@@ -1,10 +1,14 @@
-> Version 1
+
+
+# TXT C/++ local executables workspace (Download Examples)
+## Contact
+
+> Version for TXT firmware 4.6.6 4.7.0 pre-release
+ 
 > If you have any questions, please contact us: fischertechnik-technik@fischer.de
 
-> TXT firmware >= 4.4.3 needed!
-
-# TXT C Download Examples
-
+>  [For older firmware versions ](https://github.com/fischertechnik/txt_demo_c_download/releases). 
+ 
 ## TXT Programming
 
 The fischertechnik TXT controller has an (embedded) Linux system that allows communication via WLAN, Bluetooth or USB interface. 
@@ -20,7 +24,7 @@ Here, a computer can control a controller via the USB cable, WLAN or Bluetooth (
 [txt_demo_c_online](https://github.com/fischertechnik/txt_demo_c_online).
 
 - **Download programming**
-Here, a program is created with a cross compiler and transferred to the TXT, and it can be started there via the menu system. This documentation shows how an eclipse development environment can be used to create C download programs for the TXT. You can also use other IDE, e. g. Visual Studio or CodeLite.
+Here, a program is created with a cross compiler and transferred to the TXT, and it can be started there via the menu system. This documentation shows how an Eclipse development environment can be used to create C download programs for the TXT. You can also use other IDE, e. g. Visual Studio or CodeLite.
 
 ## Overview of the Demo Programs
 There are several sample programs that explain the control of the TXT.
@@ -49,8 +53,11 @@ int main(void)
 	return 0;
 }
 ```
+## Overview of available examples
 
 ### TxtDemo00_HelloWorld
+[See also the project Readme](./TxtDemo00_HelloWorld/README.md)
+
 The demo program prints "TXT: Hello World!" to cout.
 
 ### TxtDemo01_Input1Print
@@ -59,12 +66,16 @@ The demo program prints analog value to cout.
 > - Input I1: Voltage or color sensor
 
 ### TxtDemo02_EncM1
+[See also the project Readme](./TxtDemo02_EncM1/README.md)
+
 The demo program shows the distance operation of the encoder motor. It is recommended that you plug a rest gear wheel 137677 to the axle and highlight a wheel. The program switches the motor for 2 rotations, then waits for a second and carries out the same number of rotations in the opposite direction. Then the program ends.
 > Master TXT:
 > - Output M1	Encoder motor
 > - Input C1	Counter signal of the encoder motor
 
 ### TxtDemo03_Input12ExtM12
+[See also the project Readme](./TxtDemo03_Input12ExtM12/README.md)
+
 The demo program shows the initialisation of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a proportional speed. The program automatically ends after 10 seconds.
 
 > Master TXT:
@@ -80,6 +91,8 @@ The demo program shows the initialisation of the universal inputs and then reque
 > - Output M2	Light or motor
 
 ### TxtDemo04_DbcCallback_I2C
+[See also the project Readme](./TxtDemo04_DbcCallback_I2C/README.md)
+
 This example shows the data output at the I2C bus.
 The I2C unit must first be initialised, and the I2C function can then be used to write the desired number of bytes and then read in the response.
 
@@ -88,6 +101,8 @@ The I2C unit must first be initialised, and the I2C function can then be used to
 > - I2C: PCF8574 with LED's on the Outputs
 
 ### TxtDemo05_DbcCallbackInput1M1
+[See also the project Readme](./TxtDemo05_DbcCallbackInput1M1/README.md)
+
 The demo program shows the use of CallBack routine. As long as this function is set up, it is called up during the data exchange with the hardware after the inputs are read in and the output information is output. 
 
 The CallBack routine should not need a lot of time so that the timing is not affected. During the routine, the key - in order to show it as an example - is debounced and the motor is then switched depending on the input.
@@ -98,8 +113,24 @@ The program ends after the key is pressed 10 times at the I1 input.
 > - Input I1	key
 > - Output M1	Light or motor
 
-## Installation
+### TxtDemo06_O1_Blink
+[See also the project Readme](./TxtDemo06_O1_Blink/README.md)
 
+### TxtDemo07_Sound
+[See also the project Readme](./TxtDemo07_Sound/README.md)
+
+###TxtDemo08_MoveRef
+[See also the project Readme](./TxtDemo08_MoveRef/README.md)
+
+### TxtDemo99_BNO055
+[See also the project Readme](./TxtDemo99_BNO055/README.md)
+
+
+
+## Setting up my developers tools  Installation
+See []( )
+
+<!---
 ### Eclipse IDE
 Download and install:
 - [Java JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
@@ -122,8 +153,12 @@ Download:
 ![eclipse_pathsandsymbols_includes](docs/eclipse_pathsandsymbols_includes.PNG)
 ![eclipse_pathsandsymbols_libpaths](docs/eclipse_pathsandsymbols_libpaths.PNG)
 ![eclipse_pathsandsymbols_libs](docs/eclipse_pathsandsymbols_libs.PNG)
+-->
 
-## Downloading Programs to TXT
+## How to upload programs to the TXT controller
+
+<!---
+Aanpassen aan de TXT webs erver.
 Compiled programs can be downloaded to the TXT controller using [WinSCP](https://winscp.net/)
 
 > Attention: At first activate SSH Daemon for TXT firmware >=4.4.4!
@@ -145,3 +180,5 @@ Compiled programs can be downloaded to the TXT controller using [WinSCP](https:/
 - Set access rights in Properties of the downloaded binary
 
 ![winscp_access](docs/winscp_access.PNG)
+
+-->
