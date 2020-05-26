@@ -8,7 +8,8 @@
 > If you have any questions, please contact us: fischertechnik-technik@fischer.de
 
 >  [For older firmware versions ](https://github.com/fischertechnik/txt_demo_c_download/releases). 
- 
+
+<!---
 ## TXT Programming
 
 The fischertechnik TXT controller has an (embedded) Linux system that allows communication via WLAN, Bluetooth or USB interface. 
@@ -25,6 +26,7 @@ Here, a computer can control a controller via the USB cable, WLAN or Bluetooth (
 
 - **Download programming**
 Here, a program is created with a cross compiler and transferred to the TXT, and it can be started there via the menu system. This documentation shows how an Eclipse development environment can be used to create C download programs for the TXT. You can also use other IDE, e. g. Visual Studio or CodeLite.
+-->
 
 ## Overview of the Demo Programs
 There are several sample programs that explain the control of the TXT.
@@ -125,8 +127,6 @@ The program ends after the key is pressed 10 times at the I1 input.
 ### TxtDemo99_BNO055
 [See also the project Readme](./TxtDemo99_BNO055/README.md)
 
-
-
 ## Setting up my developers tools  Installation
 See []( )
 
@@ -182,3 +182,7 @@ Compiled programs can be downloaded to the TXT controller using [WinSCP](https:/
 ![winscp_access](docs/winscp_access.PNG)
 
 -->
+
+# document history
+- 2020-05-26 CvL 466.1.1 new<br/>
+  Parts are copy from the original README.md
