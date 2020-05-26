@@ -1,4 +1,18 @@
+# Content
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Content](#content)
+- [Extended C/C++ programming for the fischertechnik TXT](#extended-cc-programming-for-the-fischertechnik-txt)
+	- [Introduction](#introduction)
+	- [The organization of this GitHub repository](#the-organization-of-this-github-repository)
+	- [Documentation](#documentation)
+		- [For the developer:](#for-the-developer)
+		- [For the end-user:](#for-the-end-user)
+		- [General](#general)
+- [document history](#document-history)
+
+<!-- /TOC -->
 
 #  Extended C/C++ programming for the fischertechnik TXT
 
@@ -52,7 +66,7 @@ Overview <a id="overview"></a>
 - [How to setup my fischertechnik workspace in Eclipse?](HowToStartWithFtTxtWorkspace.md)
 - [How to start with my first fischertechnik project?](HowToStartMyFirstProject.md)
 - [How to start a new Fischertechnik local executable project](./ProjectSetUp(exe).md)
-- [Notes](./Notes.md).
+- [Notes about TXT executable](./notes(exe).md).
 - [Introduction and overview local executable projects for the developer](./FtTxtWorkspace/README.md).
 - 
 ### For the end-user:
@@ -61,5 +75,7 @@ Overview <a id="overview"></a>
 ### General
 - [How to use the TXT web server interface for uploading](./HowToUseTxtWeb.md)
 
-# document history <a id="history"></a>
-- 2020-05-24 CvL 466.1.1 new
+<a id="history"></a>
+
+# document history 
+- 2020-05-26 CvL 466.1.1 new

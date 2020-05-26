@@ -57,13 +57,18 @@ int main(void)
 ```
 ## Overview of available examples
 
+### TxtDeps
+[See also the project Readme](./TxtDeps/README.md)
+This project contains the libraries and includes belowing to the libraries and tools which are available on the TXT.<br/>
+This is the same for the SLI's.
+
 ### TxtDemo00_HelloWorld
 [See also the project Readme](./TxtDemo00_HelloWorld/README.md)
 
-The demo program prints "TXT: Hello World!" to cout.
+The demo program prints "TXT: Hello World!" to `cout`.
 
 ### TxtDemo01_Input1Print
-The demo program prints analog value to cout.
+The demo program prints analog value to `cout`.
 > Master TXT:
 > - Input I1: Voltage or color sensor
 
@@ -78,7 +83,7 @@ The demo program shows the distance operation of the encoder motor. It is recomm
 ### TxtDemo03_Input12ExtM12
 [See also the project Readme](./TxtDemo03_Input12ExtM12/README.md)
 
-The demo program shows the initialisation of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a proportional speed. The program automatically ends after 10 seconds.
+The demo program shows the initialization of the universal inputs and then requests them for 10 seconds. If the key is pressed, the M1 motor is switched on. The measured distance value of the ultrasonic sensor controls the M2 motor in the 0..100 cm area with a proportional speed. The program automatically ends after 10 seconds.
 
 > Master TXT:
 > - Input I1	key
@@ -96,7 +101,7 @@ The demo program shows the initialisation of the universal inputs and then reque
 [See also the project Readme](./TxtDemo04_DbcCallback_I2C/README.md)
 
 This example shows the data output at the I2C bus.
-The I2C unit must first be initialised, and the I2C function can then be used to write the desired number of bytes and then read in the response.
+The I2C unit must first be initialized, and the I2C function can then be used to write the desired number of bytes and then read in the response.
 
 > Master TXT:
 > - I1: Switch
