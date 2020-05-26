@@ -2,5 +2,9 @@
 #/Debug/
 #/.settings/
 #.tracecompass/
-/Documentation/
+#Documentation/
 #RemoteSystemsTempFiles/
+/.metadata/
+.settings/
+.tracecompass/
+RemoteSystemsTempFiles/

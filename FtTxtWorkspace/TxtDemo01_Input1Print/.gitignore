@@ -1,6 +1,10 @@
-#/Release/
-#/Debug/
-#/.settings/
-#.tracecompass/
+/Release/
+/Debug/
+/.settings/
+/.tracecompass/
+/.settings/
+/Documentation/html/
 /Documentation/
-#RemoteSystemsTempFiles/
+RemoteSystemsTempFiles/
+/.externalToolBuilders/
+
