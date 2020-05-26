@@ -1,4 +1,6 @@
-/Release/
-/Debug/
-/.settings/
-/.tracecompass/
+#/Release/
+#/Debug/
+#/.settings/
+#.tracecompass/
+/Documentation/
+#RemoteSystemsTempFiles/
