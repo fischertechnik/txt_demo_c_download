@@ -1,20 +1,50 @@
+/*!
+ *  \copyright (c) 2019-2020 fischertechnik
+ *  \version   1.1.1.1
+ *  \file main.cpp
+ *  \brief BNO055 basics
+ *  @remark
+ *  2020-05-27<br/>
+ *  There was a sematic error `spdlog::stdout_color_st("console")`<br/>
+ *  this had to do with the Indexer of Eclipse:<br/>
+ *    Clean your project (Project -> Clean)<br/>
+ *    Reindex files (Project -> C/C++ Index -> Rebuild)<br/>
+ *    Rebuild your project (Project -> Build All<br/>
+ *  [see also](https://stackoverflow.com/questions/13021594/eclipse-giving-me-invalid-arguments-candidates-are-void-memsetvoid-int)<br/>
+ */
+/*!
+  \def SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
+  Sets the compilation level of SPDLOG.
+*/
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
+#include <stdio.h>          // for printf()
+#include "KeLibTxtDl.h"     // TXT Lib
+#include "FtShmem.h"        // TXT Transfer Area see KeLib header
+/*!
+  \brief Includes for the spdlog
+*/
+#include "spdlog/spdlog.h"
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/sinks/basic_file_sink.h"
+#include "spdlog/sinks/rotating_file_sink.h"
+#include "spdlog/async.h"
+
+
 #include <stdio.h>          // for printf()
 #include <string.h>         // for memset()
+#include <cstring>
 #include <unistd.h>         // for sleep()
 #include <cmath>			// for pow()
-#include <iostream>
 
-#include "KeLibTxtDl.h"     // TXT Lib
-#include "FtShmem.h"        // TXT Transfer Area
+#include <iostream>
+#include <chrono>
+
+using namespace std;
 
 extern "C" {
-
 #include "bno055.h"
-
 }
 
-#include <spdlog/spdlog.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
 
 unsigned int DebugFlags;
 FILE *DebugFile;
@@ -255,10 +285,12 @@ s32 bno055_data_readout(void)
 }
 
 
+
 int main(void) 
 {
 	// Console logger with color
-	auto console = spdlog::stdout_color_mt("console");
+
+	auto console = spdlog::stdout_color_st("console");
 	//spdlog::set_formatter();
 	spdlog::set_pattern("[%t][%Y-%m-%d %T.%e][%L] %v");
 	spdlog::set_level(spdlog::level::trace);

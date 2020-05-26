@@ -17,7 +17,7 @@
   
 #include "KeLibTxtDl.h"     // TXT Lib
 #include "FtShmem.h"        // TXT Transfer Area
-
+#include "Common.h"
 // Common debugging stuff for RoboProLib
 unsigned int DebugFlags;
 FILE *DebugFile;
