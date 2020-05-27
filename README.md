@@ -62,8 +62,8 @@ Overview <a id="overview"></a>
 ### For the developer:
 - this Document
 - [What is an executable?](app.md).
-- [What is in my toolbox? My program development environment](WhichToolsYouNeed.md)
-- [How to setup my fischertechnik workspace in Eclipse?](HowToStartWithFtTxtWorkspace_app.md)
+- [What is in my toolbox? ](WhichToolsYouNeed.md) My program development environment.
+- [How to setup my fischertechnik workspace in Eclipse?](HowToStartWithFtTxtWorkspace.md)
 - [How to start with my first fischertechnik project?](HowToStartMyFirstProject_app.md)
 - [How to start a new Fischertechnik local executable project](./ProjectSetUp_app.md)
 - [Notes about TXT executable](./notes_app.md).
