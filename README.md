@@ -61,12 +61,12 @@ Overview <a id="overview"></a>
 
 ### For the developer:
 - this Document
-- [What is an executable?](EXE.md).
+- [What is an executable?](app.md).
 - [What is in my toolbox? My program development environment](WhichToolsYouNeed.md)
-- [How to setup my fischertechnik workspace in Eclipse?](HowToStartWithFtTxtWorkspace.md)
-- [How to start with my first fischertechnik project?](HowToStartMyFirstProject.md)
-- [How to start a new Fischertechnik local executable project](./ProjectSetUp(exe).md)
-- [Notes about TXT executable](./notes(exe).md).
+- [How to setup my fischertechnik workspace in Eclipse?](HowToStartWithFtTxtWorkspace_app.md)
+- [How to start with my first fischertechnik project?](HowToStartMyFirstProject_app.md)
+- [How to start a new Fischertechnik local executable project](./ProjectSetUp_app.md)
+- [Notes about TXT executable](./notes_app.md).
 - [Introduction and overview local executable projects for the developer](./FtTxtWorkspace/README.md).
 - 
 ### For the end-user:
