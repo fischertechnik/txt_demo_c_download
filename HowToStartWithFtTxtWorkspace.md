@@ -1,7 +1,6 @@
 # Content
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [Content](#content)
 - [How to setup my fischertechnik workspace in Eclipse?](#how-to-setup-my-fischertechnik-workspace-in-eclipse)
 	- [How to set up the FtTxtWorkspace?](#how-to-set-up-the-fttxtworkspace)
 - [document history](#document-history)
