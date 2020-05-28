@@ -78,7 +78,7 @@ Overview <a id="overview"></a>
   Same for both application and SLI development.
 - [How to setup my fischertechnik workspace in Eclipse?](HowToStartWithFtTxtWorkspace.md)<br/>
   Same for both application and SLI development)
-- [How to start with my first fischertechnik project?](HowToStartMyFirstProject_app.md)<br/>
+- [How to start with my first fischertechnik project?](HowToStartMyFirstProject.md)<br/>
   Almost the same for both application and SLI development.
 - [How to start a new Fischertechnik C/C++ application project](./ProjectSetUp.md)
 - [Notes about TXT executable](./notes_app.md).
