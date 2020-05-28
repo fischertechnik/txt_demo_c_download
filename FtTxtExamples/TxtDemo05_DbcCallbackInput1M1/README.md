@@ -4,9 +4,8 @@
 
 ## Version
 
-> Version for TXT firmware 4.6.6 4.7.0 pre-release
+> Version for TXT firmware 4.6.6 or 4.7.0 pre-release
  
-
 ## TxtDemo05_DbcCallbackInput1M1
 [See also the project Readme](./TxtDemo05_DbcCallbackInput1M1/README.md)
 
@@ -21,14 +20,8 @@ The program ends after the key is pressed 10 times at the I1 input.
 
 > - Output M1	Light or motor
 
-
-
-## Setting up my developers tools
- [Setting up my developments environment]( ../../WhichToolsYouNeed.md)
-
 ## How to upload programs to the TXT controller
 - [With the fischertechnik TXT web interface](../../HowToUseTxtWeb.md)
-- [With SFTP tool, for example FileZilla](../../HowToUseTxtWeb.md) 
 
 # document history
 - 2020-05-26 CvL 466.1.1 new<br/>
