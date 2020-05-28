@@ -80,7 +80,7 @@ Overview <a id="overview"></a>
   Same for both application and SLI development)
 - [How to start with my first fischertechnik project?](HowToStartMyFirstProject_app.md)<br/>
   Almost the same for both application and SLI development.
-- [How to start a new Fischertechnik C/C++ application project](./ProjectSetUp_app.md)
+- [How to start a new Fischertechnik C/C++ application project](./ProjectSetUp.md)
 - [Notes about TXT executable](./notes_app.md).
 - [Introduction and overview local executable projects for the developer](./FtTxtWorkspace/README.md).
  
