@@ -1,18 +1,17 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [TXT C/C++ programming supporting libraries](#txt-cc-programming-supporting-libraries)
-	- [How to add this libraries and includes to  TXT SLI or application Eclipse project?](#how-to-add-this-libraries-and-includes-to-txt-sli-or-application-eclipse-project)
+	- [How to add this libraries and includes to TXT SLI or application Eclipse project?](#how-to-add-this-libraries-and-includes-to-txt-sli-or-application-eclipse-project)
 		- [How to add the include path?](#how-to-add-the-include-path)
 		- [How to add both library paths?](#how-to-add-both-library-paths)
 		- [How to change the library list?](#how-to-change-the-library-list)
 			- [Normal way](#normal-way)
 			- [Alternative to update the library list](#alternative-to-update-the-library-list)
 				- [The XML-code to add](#the-xml-code-to-add)
-- [document history <a id="history"></a>](#document-history-a-idhistorya)
+- [document history](#document-history)
 
 <!-- /TOC -->
 # TXT C/C++ programming supporting libraries
-version: 2020-04-26
 
 TXT firmware 4.6.6 , 4.7.0
 
@@ -22,7 +21,7 @@ The libraries and includes are put in this Eclipse project.
 This makes relative path possible
 
 
-## How to add this libraries and includes to  TXT SLI or application Eclipse project?
+## How to add this libraries and includes to TXT SLI or application Eclipse project?
 
 ### How to add the include path?
 Add to the include path
@@ -90,10 +89,10 @@ For this set of libraries you will need this list<br/>
 									<listOptionValue builtIn="false" value="jsoncpp"/>
 ```
 
-# document history <a id="history"></a>
-- 2020-05-16/17/28 CvL 466.1.1 new<br/>
+# document history
+- 2020-05-16/17/28/31 CvL 466.1.1 new<br/>
 - Original from: on-line training SLI-programming<br/>
-  © 2020-04 ing. C.van Leeuwen Btw. Enschede Netherlands
+  � 2020-04 ing. C.van Leeuwen Btw. Enschede Netherlands
 
 
 

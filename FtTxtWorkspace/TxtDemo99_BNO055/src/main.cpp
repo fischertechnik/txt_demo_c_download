@@ -51,8 +51,10 @@ FILE *DebugFile;
 
 FISH_X1_TRANSFER* pTArea = NULL;
 
-// Callback Function.
-// This is called between receiving inputs and sending outputs to the TXT hardware
+/*! Callback Function.
+* This is called between receiving inputs and sending outputs to the TXT hardware
+*
+ */
 bool TransferAreaCallbackFunction(FISH_X1_TRANSFER *pTransArea, int i32NrAreas)
 {	//10 ms cycle
 	//LEDs
@@ -221,7 +223,8 @@ s32 bno055_raw_data_readout(void)
 	comres += bno055_read_mag_xyz(&mag_xyz);
 /*	Raw gyro X, Y and Z data can read from the register
 	page - page 0
-	register - 0x14 to 0x19*/
+	register - 0x14 to 0x19
+	*/
 	comres += bno055_read_gyro_xyz(&gyro_xyz);
 
 /************************* END READ RAW SENSOR DATA****************/
@@ -233,10 +236,13 @@ s32 bno055_raw_data_readout(void)
 s32 bno055_data_readout(void)
 {
 	s32 comres = BNO055_ERROR;
-/************************* START READ RAW FUSION DATA ********
-/*	Raw Euler H, R and P data can read from the register
+/************************* START READ RAW FUSION DATA ********/
+/*	@brief
+ * Raw Euler H, R and P data can read from the register
 	page - page 0
-	register - 0x1A to 0x1E */
+	register - 0x1A to 0x1E
+ */
+
 	comres += bno055_read_euler_hrp(&euler_hrp);
 /*	Raw Quaternion W, X, Y and Z data can read from the register
 	page - page 0

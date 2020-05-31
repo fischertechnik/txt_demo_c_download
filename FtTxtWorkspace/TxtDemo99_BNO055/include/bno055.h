@@ -103,6 +103,8 @@ typedef	u_int64_t u64;/**< used for unsigned 64bit */
 /************************************************/
 #include <stdint.h>
 /************************************************/
+#pragma warning( push )
+#pragma warning( disable: -Wpointer-compare )
 
 /*unsigned integer types*/
 typedef	uint8_t u8;/**< used for unsigned 8bit */
@@ -7970,4 +7972,6 @@ u8 *gyro_awake_durn_u8);
  */
 BNO055_RETURN_FUNCTION_TYPE bno055_set_gyro_any_motion_awake_durn(
 u8 gyro_awake_durn_u8);
+
+#pragma warning( pop )
 #endif
