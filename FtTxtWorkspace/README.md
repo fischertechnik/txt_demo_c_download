@@ -1,5 +1,29 @@
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
+- [TXT C/++ local executables workspace (Download Examples)](#txt-c-local-executables-workspace-download-examples)
+	- [Contact](#contact)
+	- [TXT Programming](#txt-programming)
+	- [What is the main structure of a program?](#what-is-the-main-structure-of-a-program)
+	- [Overview of available examples](#overview-of-available-examples)
+		- [TxtDeps](#txtdeps)
+		- [TxtDemo00_HelloWorld](#txtdemo00helloworld)
+		- [TxtDemo01_Input1Print](#txtdemo01input1print)
+		- [TxtDemo02_EncM1](#txtdemo02encm1)
+		- [TxtDemo03_Input12ExtM12](#txtdemo03input12extm12)
+		- [TxtDemo04_DbcCallback_I2C](#txtdemo04dbccallbacki2c)
+		- [TxtDemo05_DbcCallbackInput1M1](#txtdemo05dbccallbackinput1m1)
+		- [TxtDemo06_O1_Blink](#txtdemo06o1blink)
+		- [TxtDemo07_Sound](#txtdemo07sound)
+		- [TxtDemo08_MoveRef](#txtdemo08moveref)
+		- [TxtDemo99_BNO055](#txtdemo99bno055)
+	- [Setting up my developers tools](#setting-up-my-developers-tools)
+		- [Eclipse IDE](#eclipse-ide)
+		- [TXT Tool Chain (TXT firmware >= 4.4.3)](#txt-tool-chain-txt-firmware-443)
+	- [Setting up Eclipse IDE](#setting-up-eclipse-ide)
+	- [How to upload programs to the TXT controller?](#how-to-upload-programs-to-the-txt-controller)
+- [document history](#document-history)
 
+<!-- /TOC -->
 # TXT C/++ local executables workspace (Download Examples)
 ## Contact
 
@@ -28,13 +52,14 @@ Here, a computer can control a controller via the USB cable, WLAN or Bluetooth (
 Here, a program is created with a cross compiler and transferred to the TXT, and it can be started there via the menu system. This documentation shows how an Eclipse development environment can be used to create C download programs for the TXT. You can also use other IDE, e. g. Visual Studio or CodeLite.
 -->
 
-## Overview of the Demo Programs
-There are several sample programs that explain the control of the TXT.
+## What is the main structure of a program?
 
-The basic C program in download mode looks as following: 
+
+The basic C program in download mode looks as following:
+ 
 ```c
-#include "KeLibTxtDl.h"     // TXT Lib
-#include "FtShmem.h"        // TXT Transfer Area
+ #include "KeLibTxtDl.h"     // TXT Lib
+ #include "FtShmem.h"        // TXT Transfer Area
 
 // Common debugging stuff for RoboProLib
 unsigned int DebugFlags;
@@ -56,6 +81,7 @@ int main(void)
 }
 ```
 ## Overview of available examples
+How to work with the TXT libraries will be explain in the next examples.
 
 ### TxtDeps
 [See also the project Readme](./TxtDeps/README.md)
@@ -126,15 +152,15 @@ The program ends after the key is pressed 10 times at the I1 input.
 ### TxtDemo07_Sound
 [See also the project Readme](./TxtDemo07_Sound/README.md)
 
-###TxtDemo08_MoveRef
+### TxtDemo08_MoveRef
 [See also the project Readme](./TxtDemo08_MoveRef/README.md)
 
 ### TxtDemo99_BNO055
 [See also the project Readme](./TxtDemo99_BNO055/README.md)
 
-## Setting up my developers tools  Installation
-See []( )
-
+## Setting up my developers tools  
+See: [What is in my toolbox? ](https://github.com/fischertechnik/txt_demo_c_download/WhichToolsYouNeed.md )<br/>
+See: [How to setup my fischertechnik workspace in Eclipse? ](https://github.com/fischertechnik/txt_demo_c_download/HowToStartWithFtTxtWorkspace.md )<br/>
 <!---
 ### Eclipse IDE
 Download and install:
@@ -160,34 +186,13 @@ Download:
 ![eclipse_pathsandsymbols_libs](docs/eclipse_pathsandsymbols_libs.PNG)
 -->
 
-## How to upload programs to the TXT controller
-
-<!---
-Aanpassen aan de TXT webs erver.
-Compiled programs can be downloaded to the TXT controller using [WinSCP](https://winscp.net/)
-
-> Attention: At first activate SSH Daemon for TXT firmware >=4.4.4!
-
-- Activate SSH Daemon on TXT controller
-
-![ssh_daemon](docs/ssh_daemon.png)
-
-- Login with ROBOPro user
-
-![winscp_login](docs/winscp_login.PNG)
-
-- Create the directory ```/opt/knobloch/DownloadFiles/```
-
-![winscp_downloadfiles](docs/winscp_downloadfiles.PNG)
-
-- Copy the program binary using WinSCP to the path ```/opt/knobloch/DownloadFiles/```. You can drag and drop files to the DownloadFiles directory
-
-- Set access rights in Properties of the downloaded binary
-
-![winscp_access](docs/winscp_access.PNG)
-
--->
+## How to upload programs to the TXT controller?
+The TXT web server interface offers support for the maintenance of the files in the TXT user area.<br/> 
+See: [TXT web server? ](https://github.com/fischertechnik/txt_demo_c_download/HowToUseTxtWeb.md )<br/>
+Another option is the use of FileZilla sftp-tool.<br/>
+See: [What is in my toolbox? ](https://github.com/fischertechnik/txt_demo_c_download/WhichToolsYouNeed.md )
 
 # document history
 - 2020-05-26 CvL 466.1.1 new<br/>
   Parts are copy from the original README.md
+- 2020-06-23 CvL 466.1.2 update<br/>
