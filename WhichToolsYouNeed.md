@@ -42,12 +42,17 @@ This is a piece of advice only. However, these tools can be used in this introdu
 
 ### Step 1 What to download?
 
-1. Eclipse<br/>
-Versie: Eclipse 2020-03 or higher (only 64 bits)<br/>
+1. Eclipse IDE for C/C++ Developers<br/>
+Versie: Eclipse IDE for C/C++ Developers 2020-06 (r=release version) or higher (only 64 bits)<br/>
 
-   [Download]( https://www.eclipse.org/downloads/packages/release/2020-03/r/eclipse-ide-cc-developers-includes-incubating-components)  Remark: This is only the installer.
+	> [Download installer for Eclipse IDE for C/C++ Developers 2020-06 (r=release version)]( https://www.eclipse.org/downloads/download.php?file=/oomph/epp/2020-06/R/eclipse-inst-win64.exe)  Remark: This is only the installer.
 
-   Here you can find [additional help]( https://help.eclipse.org/2020-03/index.jsp) <br/>
+     or
+
+	> [Select yourself from download page](https://www.eclipse.org/downloads/packages/release/2020-06/r)
+
+	> Here you can find [additional help]( https://help.eclipse.org/2020-06/index.jsp) <br/>
+
    Eclipse has two different possibilities to install additional functionality.
 
 1. Linaro<br/>
@@ -225,6 +230,7 @@ Now we are ready to start with the [How to setup my fischertechnik SLI workspace
 
 
 # document history <a id="history"></a>
+- 2020-06-29 CvL 466.1.2 new Eclipse version<br/>
 - 2020-05-16/17/18/19/24 CvL 466.1.1 new<br/>
 - Original from: on-line training SLI-programming<br/>
   © 2020-04 ing. C.van Leeuwen Btw. Enschede Netherlands
