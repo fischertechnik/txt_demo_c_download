@@ -3,7 +3,9 @@
 - [The fischertechnik transfer area (TA)](#the-fischertechnik-transfer-area-ta)
 	- [Introduction](#introduction)
 	- [Remarks](#remarks)
-	- [The main structure](#the-main-structure)
+			- [Typical structure of a basic local program.](#typical-structure-of-a-basic-local-program)
+			- [Typical structure of a local program which is using the `TransferAreaCallbackFunction` callback function. <br/>](#typical-structure-of-a-local-program-which-is-using-the-transferareacallbackfunction-callback-function-br)
+	- [The TA main structure](#the-ta-main-structure)
 		- [source of information](#source-of-information)
 		- [The complete TA for a TXT controller](#the-complete-ta-for-a-txt-controller)
 		- [ftX1config](#ftx1config)
@@ -16,8 +18,11 @@
 			- [typical use for enhanced motors, to inspect if the black box has ended](#typical-use-for-enhanced-motors-to-inspect-if-the-black-box-has-ended)
 		- [ftX1input](#ftx1input)
 			- [template for a read value for a certain Universal Input.](#template-for-a-read-value-for-a-certain-universal-input)
-		- [_TXT_SPECIAL_INPUTS_2](#txtspecialinputs2)
+		- [_TXT_SPECIAL_OUTPUTS](#txtspecialoutputs)
+			- [Typical templates for the sound method](#typical-templates-for-the-sound-method)
 		- [_TXT_SPECIAL_INPUTS](#txtspecialinputs)
+		- [_TXT_SPECIAL_INPUTS_2](#txtspecialinputs2)
+			- [Typical templates for the microphone methods](#typical-templates-for-the-microphone-methods)
 - [Document history](#document-history)
 
 <!-- /TOC -->
@@ -40,7 +45,68 @@ The reader is expected to have reasonable knowledge of C and C ++. There is enou
   
 > A actuator output can be configurated as (full bridge device) Mx motor output or as two (half bridge) Ox*2, Ox*2+1 outputs. (See also RoboPro)   
 
-## The main structure
+#### Typical structure of a basic local program.   
+```C
+int main(void) 
+{
+	FISH_X1_TRANSFER    *pTArea;
+	if (StartTxtDownloadProg() == KELIB_ERROR_NONE)
+	{
+		pTArea = GetKeLibTransferAreaMainAddress();
+		if (pTArea)
+		{   // It's a real pointer
+// your configuration and start up logic
+
+			while (/*condition for keeping the program running*/)
+			{
+				//You functional logic
+			};
+		}
+		StopTxtDownloadProg();
+	}
+	return 0;
+}
+```
+
+#### Typical structure of a local program which is using the `TransferAreaCallbackFunction` callback function. <br/>
+See also the KeLibTxtDl.h.
+  
+```C
+
+int main(void) 
+{
+    FISH_X1_TRANSFER    *pTArea;
+    if (StartTxtDownloadProg() == KELIB_ERROR_NONE)
+    {
+        pTArea = GetKeLibTransferAreaMainAddress();
+        if (pTArea)
+        {   
+            // Start using Callback Function
+            SetTransferAreaCompleteCallback(TransferAreaCallbackFunction);
+        //Let the callback do his work, keep the main program active.
+            while (u16CountInput < 10)
+            {   // main Application 
+                // No polling the inputs
+                usleep(5000);
+            }
+        }
+        StopTxtDownloadProg();
+    }
+	return 0;
+}
+// Callback Function. 
+// This is called between receiving inputs and sending outputs to TXT the hardware
+bool TransferAreaCallbackFunction(FISH_X1_TRANSFER *pTransArea, int i32NrAreas)
+{   // ============================================================
+
+    // Your program logic.
+    
+    return true;        // if you return FALSE, then the Hardware is stopped !!!
+}
+
+```
+
+## The TA main structure
 
 ### source of information
 
@@ -352,19 +418,63 @@ FtErrors GetInput(ShmIfId_TXT shmId, Input idx, INT16& ftValue, bool& overrun) {
 	return FTLIB_ERR_SUCCESS;
 }
 ```
-
-
-
-### _TXT_SPECIAL_INPUTS_2
+### _TXT_SPECIAL_OUTPUTS
+TXT output functionality like the sound interface and the LED.
+ 
 ```C
-//new firmware 4.2.4 and 4.4.3
-typedef struct _TXT_SPECIAL_INPUTS_2
+//new firmware 4.1.6
+typedef struct _TXT_SPECIAL_OUTPUTS
 {
-	// Microphone
-	INT16  u16MicLin; //the actual value of the microphone, as part of the USB camera (if connected)
-	INT16  u16MicLog; //the actual value of the microphone, as part of the USB camera (if connected)
-} TXT_SPECIAL_INPUTS_2;
+	// Id of sound command - incremented whenever a new command is sent
+	UINT16  u16SoundCmdId;
+	// Index of the sound to play - 0 means stop sound
+	UINT16  u16SoundIndex;
+	// Repeat count for playing sound
+	UINT16  u16SoundRepeat;
+
+	// LED color (start button)
+	UINT8 u8LEDColorR;  //? Is not active in the remote mode (on-line)
+	UINT8 u8LEDColorG;  //?Is not active in the remote mode (on-line)
+	UINT8 u8LEDColorB; //?Is not active in the remote mode (on-line)
+} TXT_SPECIAL_OUTPUTS;
 ```
+
+#### Typical templates for the sound method
+```C
+/// <summary>
+/// activate the sound
+/// </summary>
+/// <param name="shmId">Master or slave TXT controller</param>
+/// <param name="index">Index of the sound file </param>
+/// <param name="repeat"></param>
+/// <returns></returns>
+FtErrors SetSound(ShmIfId_TXT shmId, UINT16 index, UINT16 repeat) {
+	FTX1_INPUT* pIn = &FishX1Transfer[shmId].ftX1in;
+	TXT_SPECIAL_OUTPUTS* pOut = &FishX1Transfer[shmId].sTxtOutputs;
+	//  set 'cnt_reset_cmd_id' in output structure
+	pOut->u16SoundIndex=index;
+	pOut->u16SoundRepeat = repeat;
+	pOut->u16SoundCmdId++ ;
+	return FTLIB_ERR_SUCCESS;
+}
+
+
+/// <summary>
+/// Check if the activated sound has finished
+/// </summary>
+/// <param name="shmId">Master or slave TXT controller</param>
+/// <returns></returns>
+bool IsSoundReady(ShmIfId_TXT shmId) {
+	TXT_SPECIAL_INPUTS * pIn = &FishX1Transfer[shmId].sTxtInputs;
+	TXT_SPECIAL_OUTPUTS* pOut = &FishX1Transfer[shmId].sTxtOutputs;
+	bool res = pOut->u16SoundCmdId == pIn->u16SoundCmdId;
+	
+	return res;
+}
+```
+
+
+
 
 ### _TXT_SPECIAL_INPUTS
 
@@ -405,8 +515,79 @@ typedef struct _TXT_SPECIAL_INPUTS
 
 } TXT_SPECIAL_INPUTS;
 ```
+
+The structure of the IR controller data.
+```C
+typedef struct  _IR_DATA
+{
+	INT16   i16JoyLeftX;                // Value of left Joystick X-Axis  [0=middle -15..0..+15]
+	UINT16  u16JoyLeftXtoLeft;          // unsigned-Int Value of left Joystick X-Axis from middle to left maximum [0..15]. 
+	UINT16  u16JoyLeftXtoRight;         // unsigned-Int Value of left Joystick X-Axis from middle to right maximum [0..15].
+
+	INT16   i16JoyLeftY;                // Value of left Joystick Y-Axis  (0=middle -15..0..+15)
+	UINT16  u16JoyLeftYtoForward;       // unsigned-Int Value of left Joystick Y-Axis from middle to forward  maximum [0..15].
+	UINT16  u16JoyLeftYtoBackwards;     // unsigned-Int Value of left Joystick Y-Axis from middle to backwards  maximum [0..15].
+
+	INT16   i16JoyRightX;               // Value of right Joystick X-Axis  (0=middle -15..0..+15)
+	UINT16  u16JoyRightXtoLeft;         // unsigned-Int Value of right Joystick X-Axis from middle to left  maximum [0..15].
+	UINT16  u16JoyRightXtoRight;        // unsigned-Int Value of right Joystick X-Axis from middle to right  maximum [0..15].
+
+	INT16   i16JoyRightY;               // Value of right Joystick Y-Axis  (0=middle -15..0..+15)
+	UINT16  u16JoyRightYtoForward;      // unsigned-Int Value of right Joystick Y-Axis from middle to forward  maximum [0..15].
+	UINT16  u16JoyRightYtoBackwards;    // unsigned-Int Value of right Joystick Y-Axis from middle to backwards  maximum [0..15].
+
+	UINT16  u16ButtonOn;                // ON-Switch: 1=pressed
+	UINT16  u16ButtonOff;               // OFF-Switch: 1=pressed
+
+	UINT16  u16DipSwitch1;              // 1: Switch ON, 0: Switch OFF
+	UINT16  u16DipSwitch2;              // 1: Switch ON, 0: Switch OFF
+} KE_IR_INPUT_V01;
+```
+
+### _TXT_SPECIAL_INPUTS_2
+Remarks:
+  >  In the remote (on-line)  use, the microphone data is only available in the Compressed Transfer mode.
+  
+  >  Online mode is the sample rate 10 msec or more.
+
+```C
+//new firmware 4.2.4 and 4.4.3
+typedef struct _TXT_SPECIAL_INPUTS_2
+{
+	// Microphone
+	INT16  u16MicLin; //the actual value of the microphone, as part of the USB camera (if connected)
+	INT16  u16MicLog; //the actual value of the microphone, as part of the USB camera (if connected)
+} TXT_SPECIAL_INPUTS_2;
+```
+#### Typical templates for the microphone methods
+```C
+/// <summary>
+/// Get microphone data
+/// </summary>
+/// <param name="shmId">Master or slave TXT controller</param>
+/// <returns></returns>
+UINT16 GetMicLin(ShmIfId_TXT shmId) {
+	TXT_SPECIAL_INPUTS_2 * pIn = &FishX1Transfer[shmId].sTxtInputs2;
+	UINT16 res = pIn->u16MicLin ;
+	return res;
+
+}
+
+/// <summary>
+/// Get microphone data compressed(logarithmic
+/// </summary>
+/// <param name="shmId">master or slave controller</param>
+/// <returns></returns>
+UINT16 GetMicLog(ShmIfId_TXT shmId) {
+	
+	TXT_SPECIAL_INPUTS_2* pIn = &FishX1Transfer[shmId].sTxtInputs2;
+	UINT16 res = pIn->u16MicLog;
+	return res;
+}
+```
+
 # Document history 
-- 2020-08-08 CvL 466.1.1 new
+- 2020-08-08 CvL 466.1.2 
   © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
 - Original from: on-line training SLI-programming<br/>
   © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
