@@ -16,7 +16,7 @@
 - [Document history](#document-history)
 
 <!-- /TOC -->
-# C/C++ programming for the fischertechnik TXT controller
+# C/C++ programming for the <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> TXT controller
 
 ## Target groups for this information.
 This information is aiming for two groups of users, the end-user and software developer:<br/>
@@ -30,7 +30,7 @@ There are several possibilities to use C/C++ programs locally on the TXT:
 
 - As TXT local C/C++ application<br/>
 A local C/C++ application instead of a local RoboPro program.<br/>
-This is faster because of the leak of overhead from the RoboPro. The fischertechnik TXT C/C++ interface offers direct access to the TXT actuators outputs, sensors inputs, the I2C interface and the camera device.
+This is faster because of the leak of overhead from the RoboPro. The <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> TXT C/C++ interface offers direct access to the TXT actuators outputs, sensors inputs, the I2C interface and the camera device.
 There is for example also access to the file system, disk memory, USB memory and SD-card, the internet interface.
  In combination with technologies like Civetweb, or Mosquitto MQTT this offers a possibility to create functional units which can be part of a bigger system. Also interesting for the end-user and the educational world.
 
@@ -94,6 +94,7 @@ Overview <a id="overview"></a>
 - [How to start a new Fischertechnik C/C++ application project](./ProjectSetUp.md)
 - [Notes about TXT executable](./notes_app.md).
 - [Introduction and overview local executable projects for the developer](./FtTxtWorkspace/README.md).
+- [<font  color="#e2001a">new 2020-8-08</font> Introduction Transfer Area (TA)](./TransferArea.md)
  
 ### General
 - [How to use the TXT web server interface for the management of the TXT public file system](./HowToUseTxtWeb.md)
@@ -113,5 +114,6 @@ Overview <a id="overview"></a>
     Information about the pull-up resistor value calculation.<br/>
 
 # Document history 
-- 2020-05-26,27 CvL 466.1.2 app, new
+- 2020-08-10 CvL 466.1.4 TA description
 - 2020-06-03 CvL 466.1.3 contact, I2C references
+- 2020-05-26,27 CvL 466.1.2 app, new
