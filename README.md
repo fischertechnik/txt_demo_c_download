@@ -22,7 +22,7 @@
 This information is aiming for two groups of users, the end-user and software developer:<br/>
 >  A **developer** is someone with at least basic software engineering's skills. He/she will find information about how to create new or modify existing SLI's or applications, suggestions for the toolbox needed, setting up a development environment on MS-Windows. How to use this environment to create documents, and how to use your custom SLI's or applications.
 
-> An **end-user** is somebody with the focus on the TXT and RoboPro and a user of the functionality offered by the SLI's or the applications. He/she will find here information and examples about how to use an SLI or application. The end-user don't need to setup a complete development system, maybe only Putty and Notepad++.
+> An **end-user** is somebody with the focus on the TXT and RoboPro and a user of the functionality offered by the SLI's or the applications. He/she will find here information and examples about how to use an SLI or application. The end-user doesn't need to setup a complete development system, maybe only Putty and Notepad++.
 
 ## Introduction
 This is all about creating and/or using local applications and RoboPro extensions on the fischertechnik TXT .
@@ -51,7 +51,7 @@ Besides this local use, there are also possibilities to incorporate the TXT remo
 
 ## About the terms: TXT C/C++ application,  download and uploading?
 In my opinion the name C/C++ download program must be TXT C/C++ application. I will explain "why".<br/>
-The dictionary said that iIt is "downloading from" and "uploading to". The application (a compiled program) or SLI is going from the remote system to the TXT and that is uploading. That is also the terminology used by [the fischertechnik TXT web interfacing](./HowToUseTxtWeb.md).<br/>
+The dictionary said that it is "downloading from" and "uploading to". The application (a compiled program) or SLI is going from the remote system to the TXT and that is uploading. That is also the terminology used by [the fischertechnik TXT web interfacing](./HowToUseTxtWeb.md).<br/>
 For that reason I will use the term (TXT C/C++) application , upload to the TXT and downloading from the TXT.<br/>
 
 This repository covers only C/C++ applications and SLI's that will run directly on the TXT. However these applications and SLI's will be develop remotely with a the add of a cross-compiler.
