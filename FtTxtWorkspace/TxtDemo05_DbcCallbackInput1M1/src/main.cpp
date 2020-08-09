@@ -52,6 +52,7 @@ int main(void)
                 usleep(5000);
             
             }
+            SetTransferAreaCompleteCallback(nullptr);
         }
         StopTxtDownloadProg();
     }

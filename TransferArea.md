@@ -1,6 +1,5 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
-- [The fischertechnik transfer area (TA)](#the-fischertechnik-transfer-area-ta)
+- [The <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> transfer area (TA)](#the-fischertechnik-transfer-area-ta)
 	- [Introduction](#introduction)
 	- [Remarks](#remarks)
 			- [Typical structure of a basic local program.](#typical-structure-of-a-basic-local-program)
@@ -27,25 +26,36 @@
 
 <!-- /TOC -->
 
-# The fischertechnik transfer area (TA)
+# The <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> transfer area (TA)
 > Remark: document is under development.
-   
+
 ## Introduction
 
-Since the Robo-interface exist a description of the fischertechnik transfer area (TA). In fact it is a shared memory area which take care of the communication between the user program and the fischertechnik actuator/sensor logic. Because it is a collection of bytes, it could also be transmitted over a connection, like USB, BlueTooth or IP,  with another device. The structure of the TA has been extended with the arrivals of the fischertechnik TX-C and the TXT controller. However the principal is still the same.<br/>
-In this document we will explain the basics of "How to use the TA?" at the program site.<br/>
+  A description of the <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> transfer area (TA) exist since the <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> Robo-interface. In fact the TA is a shared memory area which take care of the communication between the user program and the fischertechnik actuator/sensor logic (On the TXT this has been called the `MotorIOLib`). Because the TA is a collection of bytes, it could also be transmitted over a connection, like USB, BlueTooth or IP,  to another device. The structure of the TA has been extended with the arrivals of the <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> TX-Controller and the <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> TXT controller. However the basic principals are still the same.<br/>
+In this document we will explain the basics of "How to use the TA?" from the point of view of the application.<br/>
 Only the Motor/Output (actuators) and Universal Inputs (sensors) will be discussed. With this information the user would be able to understand the other parts like: sound, microphone, IR-controller device, Counter inputs.<br/>
-The reader is expected to have reasonable knowledge of C and C ++. There is enough information on the internet about the possibilities and use of C11 ++ and C14 ++ and also to have very good knowledge of RoboPro elements level 4/5 and experience with it.
+The reader is expected to have reasonable knowledge of C and C ++. There is enough information on the internet about the possibilities and use of C11++ and C14++. The reader should also have good knowledge and experience with RoboPro level 4/5 elements.
 
 ## Remarks
-> The TXT is not using all the TA entries.
+> The <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> TXT does not use all parts (entries) of the TA.
 
-> The enhance Motor control is a black box which runs as part of the fischertechnik actuator/sensor logic.
-  The user program can only send commands to this black box and wait until it is ready. This black box is using a Motor in combination with a Counter.
+> The enhance Motor control is a black box which runs as part of the <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> actuator/sensor logic (`MotorIOLib`).
+  The user program can only send commands to this black box and wait until it is ready. This black box is using a Motor in combination with a Counter. See also the description of the enhance motor control in the RoboPro help.
   
-> A actuator output can be configurated as (full bridge device) Mx motor output or as two (half bridge) Ox*2, Ox*2+1 outputs. (See also RoboPro)   
+> A actuator output can be configurated as (full bridge device) Mx motor output or as two (half bridge) Ox*2, Ox*2+1 outputs. (See also RoboPro) 
+  
+>  
 
-#### Typical structure of a basic local program.   
+#### Typical structure of a basic local program.
+> In the local mode, the actuator/sensor logic updates the TA every +/- 1 msec. 
+
+> In the remote (online) mode, a program that runs as user program transmit/receive parts of the TA over IP to/from the user device. which parts are used can be found in [`ftProInterface2013TransferAreaCom.cpp`: `DoTransferSimple()` and `DoTransferCompressed()`](https://github.com/fischertechnik/txt_demo_c_online/blob/master/SolutionOnLineSamples/Common/ftProInterface2013TransferAreaCom.cpp). 
+
+> A local program needs to ask the `MotorIO` thread if it is possible to access the TA. This is done with calling  `StartTxtDownloadProg`.   `GetKeLibTransferAreaMainAddress` gives the address (pointer to) the  TA structure.<br/>See also the [`KeLibTxtDl.h` for these functions](https://github.com/fischertechnik/txt_demo_c_download/blob/master/FtTxtWorkspace/TxtDeps/Txt_Includes/KeLibTxtDl.h).
+
+> asynchronous updating of the TA.
+   
+
 ```C
 int main(void) 
 {
@@ -68,8 +78,15 @@ int main(void)
 }
 ```
 
-#### Typical structure of a local program which is using the `TransferAreaCallbackFunction` callback function. <br/>
-See also the KeLibTxtDl.h.
+#### Typical structure of a local program with `TransferAreaCallbackFunction`. 
+> The `TransferAreaCallbackFunction` callback function will called by the `MotorIO` logic after update of the TA structure. The repetition time has not been documented but could be determined by experiment.
+This time could be of the order of 1 msec.<br/>
+
+> See also the [`KeLibTxtDl.h` ](https://github.com/fischertechnik/txt_demo_c_download/blob/master/FtTxtWorkspace/TxtDeps/Txt_Includes/KeLibTxtDl.h) for this function.
+
+> Attention: 
+  - This callback is called between receiving inputs and sending outputs to TXT the hardware. So based on the Input's (sensor data) the values for the actuators can be calculated.
+  - The callback function runs synchronous in the MotorIO thread. So time consuming logic will slow down the refresh of the TA.  
   
 ```C
 
@@ -84,11 +101,12 @@ int main(void)
             // Start using Callback Function
             SetTransferAreaCompleteCallback(TransferAreaCallbackFunction);
         //Let the callback do his work, keep the main program active.
-            while (u16CountInput < 10)
-            {   // main Application 
-                // No polling the inputs
-                usleep(5000);
+            while ( ! stopCondition)
+            {   
+                usleep(500);//sleep 500 msec
             }
+			   //stop the callback activity			
+				 SetTransferAreaCompleteCallback(nullptr);		
         }
         StopTxtDownloadProg();
     }
@@ -100,7 +118,7 @@ bool TransferAreaCallbackFunction(FISH_X1_TRANSFER *pTransArea, int i32NrAreas)
 {   // ============================================================
 
     // Your program logic.
-    
+    //update  stopCondition
     return true;        // if you return FALSE, then the Hardware is stopped !!!
 }
 
@@ -228,7 +246,7 @@ FishX1Transfer[shmId]->ftX1state.config_id += 1;
 
 ```
 
-#### A template for a function to set the Motor configuration
+#### Template for a function to set the Motor configuration
 ```C
 void SetConfigMotor(int shmId, int idx, bool status) {
     if ( idx < 0 || idx >= IZ_MOTOR ) {
@@ -241,7 +259,7 @@ void SetConfigMotor(int shmId, int idx, bool status) {
     FishX1Transfer[shmId]->ftX1state.config_id += 1;
 }
 ```
-#### A template for a  function to set the Universal Input configuration
+#### Template for a  function to set the Universal Input configuration
 ```C
 void SetConfigUni(int shmId, int idx, int mode, bool digital) {
 
@@ -278,7 +296,7 @@ typedef struct ftX1output
 } FTX1_OUTPUT;
 
 ```
-#### typical use for normal motors
+#### Typical use for normal motors
 ```C
 //M1 CW
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.duty[2 * Motor::M1] = 0;
@@ -288,7 +306,7 @@ TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.duty[2 * Motor::M2] = 512;//range 0..51
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.duty[2 * Motor::M2 + 1] =0 ;
 ```
 
-#### template for a higher level motor function
+#### Template for a higher level motor function
 
 ```C
 enum Direction :int8_t {
@@ -330,29 +348,41 @@ FtErrors SetOutMotorValues(ShmIfId_TXT shmId, Motor motorId, int duty, Direction
 };
 ```
 
-#### typical use for enhanced motors
-```C  
+#### Typical use for enhance motors
+> Setting distance to >0 will activate the enhance motor control.<br/>
+
+> To return to normal motor use and stop the enhance mode, the `distance` and `master` need  all set to `0`.
+
+> The value of `motor_ex_cmd_id` will be given back in the `ftX1in` after the enhance Motor controller had finished this command.
+  
+> Attention: The index 'master'  is Motor1 =1, Motor2=2, Motor3=3 or Motor4=4.<br/> 
+  `0` means here no master. 	 
+
+```C 
+//Set duty for both motors 
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.duty[2 * Motor::M1] = 256;
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.duty[2 * Motor::M1 + 1] = 0;
-
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.duty[2 * Motor::M2]  = 0; 
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.duty[2 * Motor::M2 + 1]  = 256;  //
-MftX1outDut[2 * IdMotorB + 1] = 0;
+//Set distance
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.distance[Motor::M1] = 1000;//1000 steps  (C1)
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.distance[Motor::M2] = 1000;//1000 steps  (C2)
+//Set the the master for the slave
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.master[Motor::M2] = Motor::M1+1// , M2 is the slave, the master for M2 is M1
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.master[Motor::M1] = 0//M1 is the master
-//Start, 
+//reset the  motor_ex_reached
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1in.motor_ex_reached[Motor::M1] = false; //needs to be resetted by the user
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1in.motor_ex_reached[Motor::M2] = false; //needs to be resetted by the user
-
+//Start command, 
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.motor_ex_cmd_id[Motor::M1]++;
 TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.motor_ex_cmd_id[Motor::M2]++;
 ``` 
 
-#### typical use for enhanced motors, to inspect if the black box has ended
-In fact motor_ex_reached means for example:
+#### Typical use for enhanced motors, to inspect if the black box has ended
+> In fact `motor_ex_reached[Motor::M1]` means for example:
 `TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.motor_ex_cmd_id[Motor::M1]==TransArea[ShmIfId_TXT::LOCAL_IO].ftX1in.motor_ex_cmd_id[Motor::M1]`
+
+> `motor_ex_reached` is in the remote (on-line) mode calculated at the remote site.
 
 See ftX1input
 ```C
@@ -363,7 +393,18 @@ TransArea[ShmIfId_TXT::LOCAL_IO].ftX1in.motor_ex_reached[Motor::M2])
 // Both motors has reached the end, in this case 1000 steps
 }
 ``` 
+or
+```C
+if (  
+ (TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.motor_ex_cmd_id[Motor::M1]==TransArea[ShmIfId_TXT::LOCAL_IO].ftX1in.motor_ex_cmd_id[Motor::M1])
+ &&
+ TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out.motor_ex_cmd_id[Motor::M2]==TransArea[ShmIfId_TXT::LOCAL_IO].ftX1in.motor_ex_cmd_id[Motor::M2])
+ )
+{
+// Both motors has reached the end, in this case 1000 steps
+}
 
+``` 
 ### ftX1input
 In this structure the program reads the values coming from the Universal Inputs and enhance Motor control (including fast Counters). <br/>
 
@@ -397,7 +438,7 @@ typedef struct ftX1input
 
 
 ```
-#### template for a read value for a certain Universal Input.
+#### Template for a read value for a certain Universal Input.
 
 ```C
 FtErrors GetInput(ShmIfId_TXT shmId, Input idx, INT16& ftValue, bool& overrun) {
@@ -587,7 +628,7 @@ UINT16 GetMicLog(ShmIfId_TXT shmId) {
 ```
 
 # Document history 
-- 2020-08-08 CvL 466.1.2 
+- 2020-08-08 CvL 466.1.5 
   © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
 - Original from: on-line training SLI-programming<br/>
   © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
