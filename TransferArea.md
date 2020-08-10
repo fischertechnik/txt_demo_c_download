@@ -1,4 +1,5 @@
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
 - [The <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> transfer area (TA)](#the-fischertechnik-transfer-area-ta)
 	- [Introduction](#introduction)
 	- [Remarks](#remarks)
@@ -103,7 +104,7 @@ int main(void)
         //Let the callback do his work, keep the main program active.
             while ( ! stopCondition)
             {   
-                usleep(500);//sleep 500 msec
+					     	std::this_thread::sleep_for(std::chrono::milliseconds(500));//sleep 500 msec
             }
 			   //stop the callback activity			
 				 SetTransferAreaCompleteCallback(nullptr);		
@@ -434,15 +435,33 @@ typedef struct ftX1input
 ```
 
 
-```C
 
+#### Template for a read value for a certain Universal Input.
+
+
+> Some defintitions for the sensors.
+
+```C
+// 5 kOhm Range
+#define R_MIN               10          // [Ohm]
+#define R_MAX               4999        // [Ohm]
+#define R_OVR               5000        // [Ohm]
+
+// 10V Range
+#define U_MAX               9999        // [mV]
+#define U_OVR               10000       // [mV]
+
+// Ultrasonic Sensor Range
+#define ULTRASONIC_MIN      2           // [cm]
+#define ULTRASONIC_MAX      1023        // [cm]
+#define ULTRASONIC_OVR      1024        // [cm]
+#define NO_ULTRASONIC       4096        // not present
 
 ```
-#### Template for a read value for a certain Universal Input.
+> `overrun` indicates if the `value` is valid.
 
 ```C
 FtErrors GetInput(ShmIfId_TXT shmId, Input idx, INT16& ftValue, bool& overrun) {
-
 	if (idx < 0 || idx >= IZ_UNI_INPUT) {
 		return FTLIB_ERR_INVALID_PARAM;
 	}
@@ -628,7 +647,7 @@ UINT16 GetMicLog(ShmIfId_TXT shmId) {
 ```
 
 # Document history 
-- 2020-08-08 CvL 466.1.5 
+- 2020-08-08 CvL 466.1.6 
   © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
 - Original from: on-line training SLI-programming<br/>
   © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
