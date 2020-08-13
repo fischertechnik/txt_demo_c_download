@@ -1,27 +1,34 @@
+# Index
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-- [The <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> transfer area (TA)](#the-fischertechnik-transfer-area-ta)
+- [Index](#index)
+- [The <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> transfer area (TA)](#the-font-colore2001afischerfontfont-color006ab2technikfont-transfer-area-ta)
+	- [Reservation](#reservation)
 	- [Introduction](#introduction)
 	- [Remarks](#remarks)
-			- [Typical structure of a basic local program.](#typical-structure-of-a-basic-local-program)
-			- [Typical structure of a local program which is using the `TransferAreaCallbackFunction` callback function. <br/>](#typical-structure-of-a-local-program-which-is-using-the-transferareacallbackfunction-callback-function-br)
+		- [Typical structure of a basic local program.](#typical-structure-of-a-basic-local-program)
+		- [Typical structure of a local program with `TransferAreaCallbackFunction`.](#typical-structure-of-a-local-program-with-transferareacallbackfunction)
 	- [The TA main structure](#the-ta-main-structure)
 		- [source of information](#source-of-information)
-		- [The complete TA for a TXT controller](#the-complete-ta-for-a-txt-controller)
-		- [ftX1config](#ftx1config)
-			- [A template for a function to set the Motor configuration](#a-template-for-a-function-to-set-the-motor-configuration)
-			- [A template for a  function to set the Universal Input configuration](#a-template-for-a-function-to-set-the-universal-input-configuration)
-		- [ftX1output](#ftx1output)
-			- [typical use for normal motors](#typical-use-for-normal-motors)
-			- [template for a higher level motor function](#template-for-a-higher-level-motor-function)
-			- [typical use for enhanced motors](#typical-use-for-enhanced-motors)
-			- [typical use for enhanced motors, to inspect if the black box has ended](#typical-use-for-enhanced-motors-to-inspect-if-the-black-box-has-ended)
-		- [ftX1input](#ftx1input)
-			- [template for a read value for a certain Universal Input.](#template-for-a-read-value-for-a-certain-universal-input)
-		- [_TXT_SPECIAL_OUTPUTS](#txtspecialoutputs)
+		- [TA00  The complete TA for a TXT controller](#ta00-the-complete-ta-for-a-txt-controller)
+		- [TA01 `ftX1config`](#ta01-ftx1config)
+			- [Template for a function to set the Motor configuration](#template-for-a-function-to-set-the-motor-configuration)
+			- [Template for a  function to set the Universal Input configuration](#template-for-a-function-to-set-the-universal-input-configuration)
+		- [TA02 `ftX1output`](#ta02-ftx1output)
+			- [Typical use for normal motors](#typical-use-for-normal-motors)
+			- [Template for a higher level motor function](#template-for-a-higher-level-motor-function)
+			- [Typical use for enhance motors](#typical-use-for-enhance-motors)
+			- [Typical use for enhanced motors, to inspect if the black box has ended](#typical-use-for-enhanced-motors-to-inspect-if-the-black-box-has-ended)
+		- [TA03 ftX1input](#ta03-ftx1input)
+			- [Template for a read value for a certain Universal Input.](#template-for-a-read-value-for-a-certain-universal-input)
+		- [About counters C1..C4,](#about-counters-c1c4)
+			- [Typical templates for read counter value](#typical-templates-for-read-counter-value)
+			- [Typical templates for start reset](#typical-templates-for-start-reset)
+			- [Typical templates for is reset ready](#typical-templates-for-is-reset-ready)
+		- [TA04 `_TXT_SPECIAL_OUTPUTS`](#ta04-txtspecialoutputs)
 			- [Typical templates for the sound method](#typical-templates-for-the-sound-method)
-		- [_TXT_SPECIAL_INPUTS](#txtspecialinputs)
-		- [_TXT_SPECIAL_INPUTS_2](#txtspecialinputs2)
+		- [TA05 `_TXT_SPECIAL_INPUTS`](#ta05-txtspecialinputs)
+		- [TA06 `_TXT_SPECIAL_INPUTS_2`](#ta06-txtspecialinputs2)
 			- [Typical templates for the microphone methods](#typical-templates-for-the-microphone-methods)
 - [Document history](#document-history)
 
@@ -29,6 +36,9 @@
 
 # The <font  color="#e2001a">fischer</font><font  color="#006ab2">technik</font> transfer area (TA)
 > Remark: document is under development.
+
+## Reservation
+The technical documentation on the TA and the MotorIoLib functionality is limited to what is in the source header files (FtShmem.h and KeLibTxtDl.h). This document tries to combine that information with knowledge gained in practice, and from working with Robo-interface and TX-C. No rights can be derived from the functionalities mentioned.
 
 ## Introduction
 
@@ -45,9 +55,7 @@ The reader is expected to have reasonable knowledge of C and C ++. There is enou
   
 > A actuator output can be configurated as (full bridge device) Mx motor output or as two (half bridge) Ox*2, Ox*2+1 outputs. (See also RoboPro) 
   
->  
-
-#### Typical structure of a basic local program.
+### Typical structure of a basic local program.
 > In the local mode, the actuator/sensor logic updates the TA every +/- 1 msec. 
 
 > In the remote (online) mode, a program that runs as user program transmit/receive parts of the TA over IP to/from the user device. which parts are used can be found in [`ftProInterface2013TransferAreaCom.cpp`: `DoTransferSimple()` and `DoTransferCompressed()`](https://github.com/fischertechnik/txt_demo_c_online/blob/master/SolutionOnLineSamples/Common/ftProInterface2013TransferAreaCom.cpp). 
@@ -79,7 +87,7 @@ int main(void)
 }
 ```
 
-#### Typical structure of a local program with `TransferAreaCallbackFunction`. 
+### Typical structure of a local program with `TransferAreaCallbackFunction`. 
 > The `TransferAreaCallbackFunction` callback function will called by the `MotorIO` logic after update of the TA structure. The repetition time has not been documented but could be determined by experiment.
 This time could be of the order of 1 msec.<br/>
 
@@ -133,7 +141,7 @@ bool TransferAreaCallbackFunction(FISH_X1_TRANSFER *pTransArea, int i32NrAreas)
 - [See also for the local and SLI programming](https://github.com/fischertechnik/txt_demo_c_download/blob/master/FtTxtWorkspace/TxtDeps/Txt_Includes/FtShmem.h)
 - [See also for the method examples](https://github.com/fischertechnik/txt_demo_c_online/blob/master/SolutionTxtApps/TestProj02/Main.cpp)
 
-### The complete TA for a TXT controller
+### TA00  The complete TA for a TXT controller
 ```C
 typedef struct shm_if_s
 {
@@ -178,7 +186,7 @@ FISH_X1_TRANSFER* TransArea = GetTransferAreasArrayAddr();
  FTX1_STATE*  MftX1state = & TransArea[ShmIfId_TXT::LOCAL_IO].ftX1state;
 ```
 
-### ftX1config
+### TA01 `ftX1config`
 First step in a programming is the configuration of the Inputs and Outputs, this needs to be done at the start of the program before starting with the control logic itself:
 ```C
 /// <summary>
@@ -278,7 +286,7 @@ void SetConfigUni(int shmId, int idx, int mode, bool digital) {
 
 ```
 
-### ftX1output
+### TA02 `ftX1output`
 In this structure the program write values to control the behavior of the actuators (M or O) and the enhance Motor control (including fast Counters).
 
 ```C
@@ -406,15 +414,20 @@ if (
 }
 
 ``` 
-### ftX1input
+### TA03 ftX1input
 In this structure the program reads the values coming from the Universal Inputs and enhance Motor control (including fast Counters). <br/>
 
 It also is used to notify the user that some asynchronous actions has been finished:<br/>
 - `cnt_reset_cmd_id` the IoMotor-control informs the user which counter reset action has been finished.<br/> See also the `cnt_reset_cmd_id in` the ftX1out section.
 
 - `motor_ex_cmd_id` the IoMotor-control informs the user which enhance motor action has been finished.<br/> See also the `motor_ex_cmd_id` in the  ftX1out section.
+
 - The `uni` value depends on the `mode` and `digital` configuration of that particular Input.
 
+- From the control engineering theory we know that:
+  The highest frequency for counting depends on the quality of the pulse. A symmetrical pulse, high-time is the same as the low-time gives the best result. A a-symmetrical pulse will lower the max counting frequency.<br/> The shortest part of the pulse needs to be the same the low-time (or high-time) from the symmetrical pulse. <br/>
+	So a the fischertechnik switch in combination with a pulse wheel needs to be adjust very well to approach 
+  a symmetrical pulse. Most of the case it is better to lower the max count speed to 75% for an acceptable and stable control system.
 ```C
 typedef struct ftX1input
 {
@@ -438,26 +451,26 @@ typedef struct ftX1input
 
 #### Template for a read value for a certain Universal Input.
 
-
-> Some defintitions for the sensors.
+> Some definitions for the sensors.
 
 ```C
-// 5 kOhm Range
-#define R_MIN               10          // [Ohm]
-#define R_MAX               4999        // [Ohm]
-#define R_OVR               5000        // [Ohm]
+	// 5 kOhm Range
+	#define R_MIN               10          // [Ohm]
+	#define R_MAX               4999        // [Ohm]
+	#define R_OVR               5000        // [Ohm]
 
-// 10V Range
-#define U_MAX               9999        // [mV]
-#define U_OVR               10000       // [mV]
+	// 10V Range
+	#define U_MAX               9999        // [mV]
+	#define U_OVR               10000       // [mV]
 
-// Ultrasonic Sensor Range
-#define ULTRASONIC_MIN      2           // [cm]
-#define ULTRASONIC_MAX      1023        // [cm]
-#define ULTRASONIC_OVR      1024        // [cm]
-#define NO_ULTRASONIC       4096        // not present
+	// Ultrasonic Sensor Range
+	#define ULTRASONIC_MIN      2           // [cm]
+	#define ULTRASONIC_MAX      1023        // [cm]
+	#define ULTRASONIC_OVR      1024        // [cm]
+	#define NO_ULTRASONIC       4096        // not present
 
 ```
+
 > `overrun` indicates if the `value` is valid.
 
 ```C
@@ -478,7 +491,120 @@ FtErrors GetInput(ShmIfId_TXT shmId, Input idx, INT16& ftValue, bool& overrun) {
 	return FTLIB_ERR_SUCCESS;
 }
 ```
-### _TXT_SPECIAL_OUTPUTS
+### About counters C1..C4,
+
+These counters are sometimes call "fast counters", why?
+These counter inputs can be used in different ways.
+
+- As normal digital sensors input, like the Universal Inputs with a switch.
+  The refresh rate is 10 msec in the online mode => maximum frequency with a symmetrical pulse < +/-100hz.
+- As local counter. This counter could count with a maximum frequency with a symmetrical pulse < +/-1000hz.<br/> However in the online mode, the value and state of the counter is only accurate when the counter has stop counting or  when the maximum frequency with a symmetrical pulse is < +/-100hz.
+The value of the counter can be resetted with the request: `ftX1output cnt_reset_cmd_id`.
+The responds after the "reset" is ready, will be given with `ftX1input cnt_reset_cmd_id` and `ftX1input cnt_reset_cmd_id`
+- The counter is also been used in the so called enhance mode in combination with a motor.
+  In that case will the motor stop when a number of pulses are reached and this is signaled to the program with 'ftX1input motor_ex_reached'. The value (`count`) of the counter is resetted at the start of the enhance control action .
+
+#### Typical templates for read counter value
+	```C
+/// <summary>
+///General get the count and state of a C-input [shmId:idx]
+/// </summary>
+/// <param name="shmId">Master or slave TXT controller</param>
+/// <param name="idx">Which counter</param>
+/// <param name="count">numeric value</param>
+/// <param name="state">logical value, state</param>
+/// <returns>error</returns>
+	FtErrors ftIF2013TransferAreaComHandlerEx2::GetInCounterValue(ShmIfId_TXT shmId, Counter idx, INT16& count, bool& state) {
+	if (idx < 0 || idx >= ftIF2013_nCounters) {
+		return FTLIB_ERR_INVALID_PARAM;
+	}
+	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId];
+	//  get counter values from input structure
+	count = pX1->ftX1in.counter[idx];
+	state = (pX1->ftX1in.cnt_in[idx] == 0) ? false : true;
+	return FTLIB_ERR_SUCCESS;
+}	 
+	```
+	or 
+	
+	```C
+/// <summary>
+/// Get only the numeric value of the counter as return value of a C-input [shmId:idx]
+/// </summary>
+/// <param name="shmId">Master or slave TXT controller</param>
+/// <param name="idx">Which counter</param>
+/// <returns>counter value</returns>
+	UINT16 GetInCntCount(ShmIfId_TXT shmId, Counter idx) {
+	if (idx < 0 || idx >= ftIF2013_nCounters) {
+	ftLog::Log(LOGERR, "GetInCntCount, Invalid C index (%d:%d) ", shmId, idx);
+	}
+	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId];
+	//  get counter values from input structure
+	return (UINT16)pX1->ftX1in.counter[idx];
+}
+	```
+	or
+	
+	```C
+/// <summary>
+/// Get the logical state as return value of a C-input [shmId:idx]
+/// </summary>
+/// <param name="shmId">Master or slave TXT controller</param>
+/// <param name="idx">Which counter</param>
+/// <returns>Logical value,state</returns>
+	bool ftIF2013TransferAreaComHandlerEx2::GetInCntState(ShmIfId_TXT shmId, Counter idx) {
+	if (idx < 0 || idx >= ftIF2013_nCounters) {
+		ftLog::Log(LOGERR, "GetInCntState, Invalid C index (%d:%d) ", shmId, idx);
+		return 0;
+	}
+	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId];
+	//  get counter values from input structure
+	return (pX1->ftX1in.cnt_in[idx] == 0) ? false : true;
+}
+	```
+#### Typical templates for start reset
+	Set 'cnt_reset_cmd_id' in output structure
+	```C
+/// <summary>
+///  Start the reset action for the counter of a C-input [shmId:idx]
+/// </summary>
+/// <param name="shmId">Master or slave TXT controller</param>
+/// <param name="idx">Which counter</param>
+/// <returns>Succes or Error</returns>
+FtErrors StartCounterReset(ShmIfId_TXT shmId, Counter idx)
+{
+if (idx < 0 || idx >= ftIF2013_nCounters) return FTLIB_ERR_INVALID_PARAM;
+FTX1_INPUT* pIn = &FishX1Transfer[shmId].ftX1in;
+FTX1_OUTPUT* pOut = &FishX1Transfer[shmId].ftX1out;
+pOut->cnt_reset_cmd_id[idx]++;
+pIn->cnt_resetted[cntId] = 0; //user need to reset this one
+return FTLIB_ERR_SUCCESS; 
+	
+	```
+#### Typical templates for is reset ready
+	
+	```C	
+	/// <summary>
+	/// Has the counter of a C-input [shmId:idx] been resetted?
+	/// </summary>
+	/// <param name="shmId">Master or slave TXT controller</param>
+	/// <param name="idx">Which counter</param>
+	/// <returns>Reset is ready</returns>
+	bool IsCntResetReady(ShmIfId_TXT shmId, Counter idx)
+	{	
+	FTX1_INPUT* pIn = &FishX1Transfer[shmId].ftX1in;
+	FTX1_OUTPUT* pOut = &FishX1Transfer[shmId].ftX1out;
+	if (idx < 0 || idx >= ftIF2013_nCounters) {
+		ftLog::Log(LOGERR, "IsCntResetReady error, Invalid C index (%d:%d) ", shmId, idx);
+		return false;
+		}
+	bool CntReady1 = pIn->cnt_resetted[cntIdx] == 1;
+  //or	
+ //CntReady1 =  pIn->cnt_reset_cmd_id[idx]==pOut->cnt_reset_cmd_id[idx]);
+		return CntReady1;		
+	} 
+	```
+### TA04 `_TXT_SPECIAL_OUTPUTS`
 TXT output functionality like the sound interface and the LED.
  
 ```C
@@ -536,7 +662,7 @@ bool IsSoundReady(ShmIfId_TXT shmId) {
 
 
 
-### _TXT_SPECIAL_INPUTS
+### TA05 `_TXT_SPECIAL_INPUTS`
 
 ```C
 //new firmware 4.1.6
@@ -604,7 +730,7 @@ typedef struct  _IR_DATA
 } KE_IR_INPUT_V01;
 ```
 
-### _TXT_SPECIAL_INPUTS_2
+### TA06 `_TXT_SPECIAL_INPUTS_2`
 Remarks:
   >  In the remote (on-line)  use, the microphone data is only available in the Compressed Transfer mode.
   
@@ -647,9 +773,11 @@ UINT16 GetMicLog(ShmIfId_TXT shmId) {
 ```
 
 # Document history 
+- 2020-08-14 CvL 466.1.7 
+ Add templates about the C-inputs
 - 2020-08-08 CvL 466.1.6 
-  © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
-- Original from: on-line training SLI-programming<br/>
-  © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
+- © 2020  ing. C. van Leeuwen Btw. (TesCaWeb.nl) Enschede Netherlands
+- Original from: on-line training SLI-programming by C .van Leeuwen<br/>
+
 
 
