@@ -78,7 +78,7 @@ int main(void)
 
 			while (/*condition for keeping the program running*/)
 			{
-				//You functional logic
+				//Your functional logic
 			};
 		}
 		StopTxtDownloadProg();
@@ -109,7 +109,8 @@ int main(void)
         {   
             // Start using Callback Function
             SetTransferAreaCompleteCallback(TransferAreaCallbackFunction);
-        //Let the callback do his work, keep the main program active.
+        //Main loop. 
+				//Let the callback do his work, keep the main program active.
             while ( ! stopCondition)
             {   
 					     	std::this_thread::sleep_for(std::chrono::milliseconds(500));//sleep 500 msec
@@ -121,13 +122,16 @@ int main(void)
     }
 	return 0;
 }
+```
+And the callback for the functionality
+```C
 // Callback Function. 
 // This is called between receiving inputs and sending outputs to TXT the hardware
 bool TransferAreaCallbackFunction(FISH_X1_TRANSFER *pTransArea, int i32NrAreas)
 {   // ============================================================
 
-    // Your program logic.
-    //update  stopCondition
+    //Your functional logic
+    //Update  stopCondition for main loop
     return true;        // if you return FALSE, then the Hardware is stopped !!!
 }
 
@@ -136,12 +140,13 @@ bool TransferAreaCallbackFunction(FISH_X1_TRANSFER *pTransArea, int i32NrAreas)
 ## The TA main structure
 
 ### source of information
-
-- [See also for the online programming](https://github.com/fischertechnik/txt_demo_c_online/blob/master/SolutionTxtLib/include/FtShmemTxt.h)
-- [See also for the local and SLI programming](https://github.com/fischertechnik/txt_demo_c_download/blob/master/FtTxtWorkspace/TxtDeps/Txt_Includes/FtShmem.h)
-- [See also for the method examples](https://github.com/fischertechnik/txt_demo_c_online/blob/master/SolutionTxtApps/TestProj02/Main.cpp)
+See also for
+- [the online programming`](https://github.com/fischertechnik/txt_demo_c_online/blob/master/SolutionTxtLib/include/FtShmemTxt.h)
+- [the local and SLI programming](https://github.com/fischertechnik/txt_demo_c_download/blob/master/FtTxtWorkspace/TxtDeps/Txt_Includes/FtShmem.h)
+- [more examples about the use of the TA](https://github.com/fischertechnik/txt_demo_c_online/blob/master/SolutionTxtApps/TestProj02/Main.cpp)
 
 ### TA00  The complete TA for a TXT controller
+The overall structure. The details will be discussed.
 ```C
 typedef struct shm_if_s
 {
@@ -169,7 +174,7 @@ typedef struct shm_if_s
 
 ```
 In case of a master and a slave there is an area of two of these structures. `FISH_X1_TRANSFER*` is pointer to this area
-In the programming you can have access to this structure by:
+In the programming you can have access to this structure by for example:
 ```C
 enum ShmIfId_TXT
 {
@@ -182,6 +187,8 @@ FISH_X1_TRANSFER* TransArea = GetTransferAreasArrayAddr();
 //examples of abbreviations:
  FTX1_INPUT* MftX1in = & TransArea[ShmIfId_TXT::LOCAL_IO].ftX1in;
  FTX1_OUTPUT* MftX1out = &TransArea[ShmIfId_TXT::LOCAL_IO].ftX1out;
+ FTX1_INPUT* SftX1in = & TransArea[ShmIfId_TXT::REMOTE_IO_1].ftX1in;
+ FTX1_OUTPUT* SftX1out = &TransArea[ShmIfId_TXT::REMOTE_IO_1].ftX1out;
  FTX1_CONFIG* MftX1config = & TransArea[ShmIfId_TXT::LOCAL_IO].ftX1config;
  FTX1_STATE*  MftX1state = & TransArea[ShmIfId_TXT::LOCAL_IO].ftX1state;
 ```
