@@ -498,119 +498,131 @@ FtErrors GetInput(ShmIfId_TXT shmId, Input idx, INT16& ftValue, bool& overrun) {
 	return FTLIB_ERR_SUCCESS;
 }
 ```
+
 ### About counters C1..C4,
 
-These counters are sometimes call "fast counters", why?
-These counter inputs can be used in different ways.
+These counters are sometimes call "fast counters", why? These counter inputs can be used in different ways.
 
-- As normal digital sensors input, like the Universal Inputs with a switch.
-  The refresh rate is 10 msec in the online mode => maximum frequency with a symmetrical pulse < +/-100hz.
-- As local counter. This counter could count with a maximum frequency with a symmetrical pulse < +/-1000hz.<br/> However in the online mode, the value and state of the counter is only accurate when the counter has stop counting or  when the maximum frequency with a symmetrical pulse is < +/-100hz.
-The value of the counter can be resetted with the request: `ftX1output cnt_reset_cmd_id`.
-The responds after the "reset" is ready, will be given with `ftX1input cnt_reset_cmd_id` and `ftX1input cnt_reset_cmd_id`
-- The counter is also been used in the so called enhance mode in combination with a motor.
-  In that case will the motor stop when a number of pulses are reached and this is signaled to the program with 'ftX1input motor_ex_reached'. The value (`count`) of the counter is resetted at the start of the enhance control action .
+-   As normal digital sensors input, like the Universal Inputs with a switch. The refresh rate is 10 msec in the online mode => maximum frequency with a symmetrical pulse < +/-100hz.
+-   As local counter. This counter could count with a maximum frequency with a symmetrical pulse < +/-1000hz.  
+    However in the online mode, the value and state of the counter is only accurate when the counter has stop counting or when the maximum frequency with a symmetrical pulse is < +/-100hz. The value of the counter can be resetted with the request:  `ftX1output cnt_reset_cmd_id`. The responds after the "reset" is ready, will be given with  `ftX1input cnt_reset_cmd_id`  and  `ftX1input cnt_reset_cmd_id`
+-   The counter is also been used in the so called enhance mode in combination with a motor. In that case will the motor stop when a number of pulses are reached and this is signaled to the program with 'ftX1input motor_ex_reached'. The value (`count`) of the counter is resetted at the start of the enhance control action .
 
-#### Typical templates for read counter value
-	```C
-/// <summary>
+#### [](https://github.com/fischertechnik/txt_demo_c_download/blob/master/TransferArea.md#typical-templates-for-read-counter-value)Typical templates for read counter value
+
+
+```C
+
+
+
+///
+
 ///General get the count and state of a C-input [shmId:idx]
-/// </summary>
-/// <param name="shmId">Master or slave TXT controller</param>
-/// <param name="idx">Which counter</param>
-/// <param name="count">numeric value</param>
-/// <param name="state">logical value, state</param>
-/// <returns>error</returns>
-	FtErrors ftIF2013TransferAreaComHandlerEx2::GetInCounterValue(ShmIfId_TXT shmId, Counter idx, INT16& count, bool& state) {
-	if (idx < 0 || idx >= ftIF2013_nCounters) {
+////// Master or slave TXT controller
+/// Which counter
+/// numeric value
+/// logical value, state
+/// error
+FtErrors ftIF2013TransferAreaComHandlerEx2::GetInCounterValue(ShmIfId_TXT shmId, Counter idx, INT16& count, bool& state) {
+	if (idx < 0 || idx >= ftIF2013_nCounters)
+	{
 		return FTLIB_ERR_INVALID_PARAM;
 	}
-	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId];
-	//  get counter values from input structure
-	count = pX1->ftX1in.counter[idx];
-	state = (pX1->ftX1in.cnt_in[idx] == 0) ? false : true;
-	return FTLIB_ERR_SUCCESS;
-}	 
-	```
-	or 
-	
-	```C
-/// <summary>
-/// Get only the numeric value of the counter as return value of a C-input [shmId:idx]
-/// </summary>
-/// <param name="shmId">Master or slave TXT controller</param>
-/// <param name="idx">Which counter</param>
-/// <returns>counter value</returns>
-	UINT16 GetInCntCount(ShmIfId_TXT shmId, Counter idx) {
-	if (idx < 0 || idx >= ftIF2013_nCounters) {
-	ftLog::Log(LOGERR, "GetInCntCount, Invalid C index (%d:%d) ", shmId, idx);
-	}
-	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId];
-	//  get counter values from input structure
-	return (UINT16)pX1->ftX1in.counter[idx];
+	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId]; // get counter values from input 			structure
+	count = pX1->ftX1in.counter[idx]; state = (pX1->ftX1in.cnt_in[idx] == 0) ? false : true; return FTLIB_ERR_SUCCESS;
 }
-	```
-	or
-	
-	```C
-/// <summary>
+```
+or
+
+```C
+///
+
+/// Get only the numeric value of the counter as return value of a C-input [shmId:idx]
+////// Master or slave TXT controller
+/// Which counter
+/// counter value
+UINT16 GetInCntCount(ShmIfId_TXT shmId, Counter idx)
+{
+	if (idx < 0 || idx >= ftIF2013_nCounters)
+	{
+		ftLog::Log(LOGERR, "GetInCntCount, Invalid C index (%d:%d) ", shmId, idx);
+	}
+	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId]; // get counter values from input structure
+	return (UINT16)pX1->ftX1in.counter[idx];
+} 
+```
+or
+```C
+///
+
 /// Get the logical state as return value of a C-input [shmId:idx]
-/// </summary>
-/// <param name="shmId">Master or slave TXT controller</param>
-/// <param name="idx">Which counter</param>
-/// <returns>Logical value,state</returns>
-	bool ftIF2013TransferAreaComHandlerEx2::GetInCntState(ShmIfId_TXT shmId, Counter idx) {
-	if (idx < 0 || idx >= ftIF2013_nCounters) {
+////// Master or slave TXT controller
+/// Which counter
+/// Logical value,state
+bool ftIF2013TransferAreaComHandlerEx2::GetInCntState(ShmIfId_TXT shmId, Counter idx)
+{
+	if (idx < 0 || idx >= ftIF2013_nCounters)
+	{
 		ftLog::Log(LOGERR, "GetInCntState, Invalid C index (%d:%d) ", shmId, idx);
 		return 0;
 	}
-	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId];
-	//  get counter values from input structure
+	FISH_X1_TRANSFER* pX1 = &FishX1Transfer[shmId]; // get counter values from input structure
 	return (pX1->ftX1in.cnt_in[idx] == 0) ? false : true;
 }
-	```
-#### Typical templates for start reset
-	Set 'cnt_reset_cmd_id' in output structure
-	```C
+```
+
+#### [](https://github.com/fischertechnik/txt_demo_c_download/blob/master/TransferArea.md#typical-templates-for-start-reset)Typical templates for start reset
+
+```
+Set 'cnt_reset_cmd_id' in output structure
+```
+```C
+///
+
+/// Start the reset action for the counter of a C-input [shmId:idx]
+////// Master or slave TXT controller
+/// Which counter
+/// Succes or Error
+FtErrors StartCounterReset(ShmIfId_TXT shmId, Counter idx)
+{
+	if (idx < 0 || idx >= ftIF2013_nCounters)
+		return FTLIB_ERR_INVALID_PARAM;
+	FTX1_INPUT* pIn = &FishX1Transfer[shmId].ftX1in;
+	FTX1_OUTPUT* pOut = &FishX1Transfer[shmId].ftX1out;
+	pOut->cnt_reset_cmd_id[idx]++;
+	pIn->cnt_resetted[cntId] = 0; //user need to reset this one
+	return FTLIB_ERR_SUCCESS;
+}
+```
+
+#### [](https://github.com/fischertechnik/txt_demo_c_download/blob/master/TransferArea.md#typical-templates-for-is-reset-ready)Typical templates for is reset ready
+
+```C	
 /// <summary>
-///  Start the reset action for the counter of a C-input [shmId:idx]
+/// Has the counter of a C-input [shmId:idx] been resetted?
 /// </summary>
 /// <param name="shmId">Master or slave TXT controller</param>
 /// <param name="idx">Which counter</param>
-/// <returns>Succes or Error</returns>
-FtErrors StartCounterReset(ShmIfId_TXT shmId, Counter idx)
-{
-if (idx < 0 || idx >= ftIF2013_nCounters) return FTLIB_ERR_INVALID_PARAM;
-FTX1_INPUT* pIn = &FishX1Transfer[shmId].ftX1in;
-FTX1_OUTPUT* pOut = &FishX1Transfer[shmId].ftX1out;
-pOut->cnt_reset_cmd_id[idx]++;
-pIn->cnt_resetted[cntId] = 0; //user need to reset this one
-return FTLIB_ERR_SUCCESS; 
-	
-	```
-#### Typical templates for is reset ready
-	
-	```C	
-	/// <summary>
-	/// Has the counter of a C-input [shmId:idx] been resetted?
-	/// </summary>
-	/// <param name="shmId">Master or slave TXT controller</param>
-	/// <param name="idx">Which counter</param>
-	/// <returns>Reset is ready</returns>
-	bool IsCntResetReady(ShmIfId_TXT shmId, Counter idx)
-	{	
+/// <returns>Reset is ready</returns>
+bool IsCntResetReady(ShmIfId_TXT shmId, Counter idx)
+{	
 	FTX1_INPUT* pIn = &FishX1Transfer[shmId].ftX1in;
 	FTX1_OUTPUT* pOut = &FishX1Transfer[shmId].ftX1out;
 	if (idx < 0 || idx >= ftIF2013_nCounters) {
 		ftLog::Log(LOGERR, "IsCntResetReady error, Invalid C index (%d:%d) ", shmId, idx);
 		return false;
-		}
+	}
 	bool CntReady1 = pIn->cnt_resetted[cntIdx] == 1;
-  //or	
- //CntReady1 =  pIn->cnt_reset_cmd_id[idx]==pOut->cnt_reset_cmd_id[idx]);
-		return CntReady1;		
-	} 
-	```
+	return CntReady1;
+}
+
+```
+
+or
+```C
+...
+bool CntReady1 = pIn->cnt_reset_cmd_id[idx]==pOut->cnt_reset_cmd_id[idx]);
+```
 ### TA04 `_TXT_SPECIAL_OUTPUTS`
 TXT output functionality like the sound interface and the LED.
  
